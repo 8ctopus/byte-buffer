@@ -71,8 +71,17 @@ final class BufferTest extends TestCase
         $buffer = (new Buffer())
             ->setEndian(Endian::LittleEndian)
             ->writeString('Hello')
+            ->writeByte(0x01)
+            ->writeWord(0xffee)
+            ->writeDword(0xaabbccdd)
             ->setPosition(0);
 
         $this->assertEquals('Hello', $buffer->readString());
+        $this->assertEquals(6, $buffer->position());
+        $this->assertEquals(0x01, $buffer->readByte());
+        $this->assertEquals(7, $buffer->position());
+        $this->assertEquals(0xffee, $buffer->readWord());
+        $this->assertEquals(9, $buffer->position());
+        $this->assertEquals(0xaabbccdd, $buffer->readDword());
     }
 }

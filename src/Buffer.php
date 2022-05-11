@@ -112,8 +112,6 @@ class Buffer implements ArrayAccess
     {
         $data = $this->read(1);
 
-        ++$this->position;
-
         return ord($data);
     }
 
@@ -121,16 +119,12 @@ class Buffer implements ArrayAccess
     {
         assert($this->endian !== Endian::None);
 
-        $this->position += 2;
-
         return unpack($this->endian === Endian::LittleEndian ? 'v' : 'n', $this->read(2))[1];
     }
 
     public function readDword() : int
     {
         assert($this->endian !== Endian::None);
-
-        $this->position += 4;
 
         return unpack($this->endian === Endian::LittleEndian ? 'V' : 'N', $this->read(4))[1];
     }
