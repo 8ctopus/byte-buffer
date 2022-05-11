@@ -148,7 +148,7 @@ class Buffer implements ArrayAccess
             $str .= $data;
         }
 
-        throw new BufferException('out of range');
+        throw new BufferException('unhandled exception');
     }
 
     public function truncate() : self
@@ -220,6 +220,8 @@ class Buffer implements ArrayAccess
 
     public function invert() : self
     {
+        $this->setPosition(0);
+
         $length = $this->length();
 
         for ($i = 0; $i < floor($length / 2); ++$i) {

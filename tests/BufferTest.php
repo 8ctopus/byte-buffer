@@ -71,17 +71,49 @@ final class BufferTest extends TestCase
         $buffer = (new Buffer())
             ->setEndian(Endian::LittleEndian)
             ->writeString('Hello')
+            ->writeChars('World')
             ->writeByte(0x01)
             ->writeWord(0xffee)
             ->writeDword(0xaabbccdd)
             ->setPosition(0);
 
         $this->assertEquals('Hello', $buffer->readString());
-        $this->assertEquals(6, $buffer->position());
+        $this->assertEquals('World', $buffer->readChars(5));
+        $this->assertEquals(11, $buffer->position());
         $this->assertEquals(0x01, $buffer->readByte());
-        $this->assertEquals(7, $buffer->position());
+        $this->assertEquals(12, $buffer->position());
         $this->assertEquals(0xffee, $buffer->readWord());
-        $this->assertEquals(9, $buffer->position());
+        $this->assertEquals(14, $buffer->position());
         $this->assertEquals(0xaabbccdd, $buffer->readDword());
+    }
+
+    public function testReadStringException() : void
+    {
+        $this->expectException(AssertionError::class);
+
+        $buffer = (new Buffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars('Hello')
+            ->setPosition(0);
+
+        $buffer->readString();
+    }
+
+    public function testInversion() : void
+    {
+        $buffer = (new Buffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars('AABBCC');
+
+        $buffer->invert();
+
+        $this->assertEquals('CCBBAA', $buffer->readChars(6));
+
+        $buffer
+            ->truncate()
+            ->writeDword(0x01020304)
+            ->invert();
+
+        $this->assertEquals(0x04030201, $buffer->readDword());
     }
 }
