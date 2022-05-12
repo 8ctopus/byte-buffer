@@ -1,6 +1,6 @@
 # byte buffer
 
-A php buffer to work with binary data.
+Work with binary data in php.
 
 ## install
 
@@ -11,12 +11,19 @@ composer require 8ctopus/byte-buffer
 ## demo
 
 ```php
-use oct8pus\ByteBuffer\ByteBuffer;
+use Oct8pus\ByteBuffer\ByteBuffer;
+use Oct8pus\ByteBuffer\Endian;
 
 require_once 'vendor/autoload.php';
 
-$router = new ByteBuffer();
+$buffer = (new ByteBuffer())
+    ->setEndian(Endian::LittleEndian)
+    ->writeString('Hello')
+    ->writeString('World')
+    ->writeWord(0xffff)
+    ->writeDword(0xaabbccdd);
 
+echo $buffer . "\n";
 ```
 
 ## run tests
