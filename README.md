@@ -46,3 +46,7 @@ vendor/bin/phpunit --coverage-html coverage
 ```sh
 vendor/bin/php-cs-fixer fix
 ```
+
+# reference
+
+https://igor.io/2012/09/24/binary-parsing.html
