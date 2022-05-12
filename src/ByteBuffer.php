@@ -111,7 +111,7 @@ class ByteBuffer implements ArrayAccess
                 throw new ByteBufferException('origin not set');
         }
 
-        if ($position < 0 && $position >= $this->length()) {
+        if ($position < 0 || $position > $this->length()) {
             throw new ByteBufferException('out of range');
         }
 
@@ -195,7 +195,7 @@ class ByteBuffer implements ArrayAccess
         $data = chr($data & 0x000000FF);
         //$this->data .= pack('C', $data);
 
-        if ($this->position = $this->length()) {
+        if ($this->position === $this->length()) {
             $this->data .= $data;
         } else {
             $this->data = substr_replace($this->data, $data, $this->position, 1);
@@ -216,7 +216,7 @@ class ByteBuffer implements ArrayAccess
         //$this->data .= chr(($data & 0x0000ff00) >> 8);
         //$this->data .= chr($data & 0x000000ff);
 
-        if ($this->position = $this->length()) {
+        if ($this->position === $this->length()) {
             $this->data .= $data;
         } else {
             $this->data = substr_replace($this->data, $data, $this->position, 2);
@@ -239,7 +239,7 @@ class ByteBuffer implements ArrayAccess
         //$this->data .= chr(($data & 0x0000ff00) >> 8);
         //$this->data .= chr($data & 0x000000ff);
 
-        if ($this->position = $this->length()) {
+        if ($this->position === $this->length()) {
             $this->data .= $data;
         } else {
             $this->data = substr_replace($this->data, $data, $this->position, 4);

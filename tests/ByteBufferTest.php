@@ -19,12 +19,37 @@ final class ByteBufferTest extends TestCase
         parent::setUp();
     }
 
-    public function testNoEndian() : void
+    public function testNoEndianException() : void
     {
-        $this->expectException(ByteBufferException::class);
+        $buffer = new ByteBuffer();
 
-        $buffer = (new ByteBuffer())
-            ->writeWord(0x0000);
+        $count = 0;
+
+        try {
+            $buffer->readWord();
+        } catch (Exception $e) {
+            ++$count;
+        }
+
+        try {
+            $buffer->readDWord();
+        } catch (Exception $e) {
+            ++$count;
+        }
+
+        try {
+            $buffer->writeWord(0x0000);
+        } catch (Exception $e) {
+            ++$count;
+        }
+
+        try {
+            $buffer->writeDWord(0x0000);
+        } catch (Exception $e) {
+            ++$count;
+        }
+
+        $this->assertEquals(4, $count);
     }
 
     public function testEndian() : void
@@ -51,23 +76,41 @@ final class ByteBufferTest extends TestCase
         $this->assertEquals(0, $buffer->length());
     }
 
-    public function testPosition() : void
+    public function testSeekAndPosition() : void
     {
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
         $this->assertEquals(0, $buffer->position());
 
-        $buffer->writeChars('12345');
+        $str = '12345';
 
-        $this->assertEquals(5, $buffer->position());
+        $buffer->writeChars($str);
+
+        $this->assertEquals(strlen($str), $buffer->position());
 
         $buffer->seek(0, Origin::Start);
 
         $this->assertEquals(0, $buffer->position());
+
+        $buffer->seek(0, Origin::End);
+
+        $this->assertEquals(strlen($str), $buffer->position());
+
+        $buffer->seek(-2, Origin::Current);
+
+        $this->assertEquals(strlen($str) - 2, $buffer->position());
+
+        $buffer->seek(+2, Origin::Current);
+
+        $this->assertEquals(strlen($str), $buffer->position());
+
+        $this->expectException(ByteBufferException::class);
+
+        $buffer->seek(-1, Origin::Start);
     }
 
-    public function testReadWrite() : void
+    public function testReadWriteLE() : void
     {
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian)
@@ -86,6 +129,49 @@ final class ByteBufferTest extends TestCase
         $this->assertEquals(0xffee, $buffer->readWord());
         $this->assertEquals(14, $buffer->position());
         $this->assertEquals(0xaabbccdd, $buffer->readDword());
+
+        $buffer
+            ->seek(-7, Origin::Current)
+            ->writeByte(0x11)
+            ->writeWord(0x7766)
+            ->writeDword(0xffeeddaa)
+            ->seek(-7, Origin::End);
+
+        $this->assertEquals(0x11, $buffer->readByte());
+        $this->assertEquals(0x7766, $buffer->readWord());
+        $this->assertEquals(0xffeeddaa, $buffer->readDword());
+    }
+
+    public function testReadWriteBE() : void
+    {
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::BigEndian)
+            ->writeString('Hello')
+            ->writeChars('World')
+            ->writeByte(0x01)
+            ->writeWord(0xffee)
+            ->writeDword(0xaabbccdd)
+            ->seek(0, Origin::Start);
+
+        $this->assertEquals('Hello', $buffer->readString());
+        $this->assertEquals('World', $buffer->readChars(5));
+        $this->assertEquals(11, $buffer->position());
+        $this->assertEquals(0x01, $buffer->readByte());
+        $this->assertEquals(12, $buffer->position());
+        $this->assertEquals(0xffee, $buffer->readWord());
+        $this->assertEquals(14, $buffer->position());
+        $this->assertEquals(0xaabbccdd, $buffer->readDword());
+
+        $buffer
+            ->seek(-7, Origin::Current)
+            ->writeByte(0x11)
+            ->writeWord(0x7766)
+            ->writeDword(0xffeeddaa)
+            ->seek(-7, Origin::End);
+
+        $this->assertEquals(0x11, $buffer->readByte());
+        $this->assertEquals(0x7766, $buffer->readWord());
+        $this->assertEquals(0xffeeddaa, $buffer->readDword());
     }
 
     public function testReadStringException() : void
