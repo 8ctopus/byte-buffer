@@ -35,10 +35,10 @@ hex (19):
 ## run tests
 
 ```sh
-./vendor/bin/phpunit .
+vendor/bin/phpunit
 
 # code coverage
-./vendor/bin/phpunit . --coverage-html coverage
+vendor/bin/phpunit --coverage-html coverage
 ```
 
 ## clean code
