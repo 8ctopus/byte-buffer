@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 use Oct8pus\ByteBuffer\ByteBuffer;
-use Oct8pus\ByteBuffer\Endian;
 use Oct8pus\ByteBuffer\ByteBufferException;
+use Oct8pus\ByteBuffer\Endian;
+use Oct8pus\ByteBuffer\Origin;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -61,7 +62,7 @@ final class ByteBufferTest extends TestCase
 
         $this->assertEquals(5, $buffer->position());
 
-        $buffer->setPosition(0);
+        $buffer->seek(0, Origin::Start);
 
         $this->assertEquals(0, $buffer->position());
     }
@@ -75,7 +76,7 @@ final class ByteBufferTest extends TestCase
             ->writeByte(0x01)
             ->writeWord(0xffee)
             ->writeDword(0xaabbccdd)
-            ->setPosition(0);
+            ->seek(0, Origin::Start);
 
         $this->assertEquals('Hello', $buffer->readString());
         $this->assertEquals('World', $buffer->readChars(5));
@@ -94,7 +95,7 @@ final class ByteBufferTest extends TestCase
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian)
             ->writeChars('Hello')
-            ->setPosition(0);
+            ->seek(0, Origin::Start);
 
         $buffer->readString();
     }

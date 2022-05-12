@@ -2,6 +2,7 @@
 
 use Oct8pus\ByteBuffer\ByteBuffer;
 use Oct8pus\ByteBuffer\Endian;
+use Oct8pus\ByteBuffer\Origin;
 
 require_once './vendor/autoload.php';
 
@@ -23,7 +24,7 @@ $buffer
     ->writeDword(0x40302010)
     ->writeWord(0x0)
     ->writeWord(0xffee)
-    ->setPosition(0);
+    ->seek(0, Origin::Start);
 
 echo $buffer . "\n";
 

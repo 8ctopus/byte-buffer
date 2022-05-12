@@ -8,16 +8,20 @@ use Exception;
 enum Endian
 {
     case None;
-
     case LittleEndian;
-
     case BigEndian;
 }
 
-class ByteBufferException extends Exception
+enum Origin
 {
-
+    case None;
+    case Start;
+    case Current;
+    case End;
 }
+
+class ByteBufferException extends Exception
+{}
 
 class ByteBuffer implements ArrayAccess
 {
@@ -88,9 +92,26 @@ class ByteBuffer implements ArrayAccess
         return $this->position;
     }
 
-    public function setPosition($position) : self
+    public function seek(int $offset, Origin $origin) : self
     {
-        if ($position < 0 && $position >= strlen($this->data)) {
+        switch ($origin) {
+            case Origin::Start:
+                $position = $offset;
+                break;
+
+            case Origin::Current:
+                $position = $this->position + $offset;
+                break;
+
+            case Origin::End:
+                $position = $this->length() + $offset;
+                break;
+
+            default:
+                throw new ByteBufferException('origin not set');
+        }
+
+        if ($position < 0 && $position >= $this->length()) {
             throw new ByteBufferException('out of range');
         }
 
@@ -122,7 +143,7 @@ class ByteBuffer implements ArrayAccess
     public function readWord() : int
     {
         if ($this->endian === Endian::None) {
-            throw new ByteBufferException('unset endian');
+            throw new ByteBufferException('endian not set');
         }
 
         return unpack($this->endian === Endian::LittleEndian ? 'v' : 'n', $this->read(2))[1];
@@ -131,7 +152,7 @@ class ByteBuffer implements ArrayAccess
     public function readDword() : int
     {
         if ($this->endian === Endian::None) {
-            throw new ByteBufferException('unset endian');
+            throw new ByteBufferException('endian not set');
         }
 
         return unpack($this->endian === Endian::LittleEndian ? 'V' : 'N', $this->read(4))[1];
@@ -182,7 +203,7 @@ class ByteBuffer implements ArrayAccess
     public function writeWord(int $data) : self
     {
         if ($this->endian === Endian::None) {
-            throw new ByteBufferException('unset endian');
+            throw new ByteBufferException('endian not set');
         }
 
         $this->data .= pack($this->endian === Endian::LittleEndian ? 'v' : 'n', $data);
@@ -198,7 +219,7 @@ class ByteBuffer implements ArrayAccess
     public function writeDword(int $data) : self
     {
         if ($this->endian === Endian::None) {
-            throw new ByteBufferException('unset endian');
+            throw new ByteBufferException('endian not set');
         }
 
         $this->data .= pack($this->endian === Endian::LittleEndian ? 'V' : 'N', $data);
@@ -234,7 +255,7 @@ class ByteBuffer implements ArrayAccess
 
     public function invert() : self
     {
-        $this->setPosition(0);
+        $this->seek(0, Origin::Start);
 
         $length = $this->length();
 
