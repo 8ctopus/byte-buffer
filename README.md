@@ -2,6 +2,8 @@
 
 Work with binary data in php.
 
+[![Latest Stable Version](http://poser.pugx.org/8ctopus/byte-buffer/v)](https://packagist.org/packages/8ctopus/byte-buffer) [![Total Downloads](http://poser.pugx.org/8ctopus/byte-buffer/downloads)](https://packagist.org/packages/8ctopus/byte-buffer) [![Latest Unstable Version](http://poser.pugx.org/8ctopus/byte-buffer/v/unstable)](https://packagist.org/packages/8ctopus/byte-buffer) [![License](http://poser.pugx.org/8ctopus/byte-buffer/license)](https://packagist.org/packages/8ctopus/byte-buffer) [![PHP Version Require](http://poser.pugx.org/8ctopus/byte-buffer/require/php)](https://packagist.org/packages/8ctopus/byte-buffer)
+
 ## install
 
 ```sh
