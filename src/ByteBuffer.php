@@ -44,16 +44,24 @@ class ByteBuffer implements ArrayAccess
     {
         $length = $this->length();
 
-        $hex = "hex ({$length}):";
+        $output = "hex ({$length}):";
+
+        if ($length > 20) {
+            $output .= "\n";
+        }
+
+        $hex = '';
         $ascii = '';
 
         for ($i = 0; $i < $length; ++$i) {
-            if (!($i % 4)) {
+            if ($i && !($i % 4)) {
                 $hex .= ' ';
             }
 
-            if (!($i % 20)) {
-                $hex .= $ascii . "\n";
+            if ($i && !($i % 20)) {
+                $output .= $hex . '- ' . $ascii . "\n";
+
+                $hex = '';
                 $ascii = '';
             }
 
@@ -64,7 +72,15 @@ class ByteBuffer implements ArrayAccess
             $ascii .= ($data >= 0x20 && $data < 0x7F) ? $this->data[$i] : '.';
         }
 
-        return $hex . ' - ' . $ascii . "\n";
+        if (strlen($hex)) {
+            if ($length > 20) {
+                $output .= str_pad($hex, 44) . ' - ' . $ascii . "\n";
+            } else {
+                $output .= ' '. $hex . ' - ' . $ascii . "\n";
+            }
+        }
+
+        return $output;
     }
 
     public function endian() : Endian
