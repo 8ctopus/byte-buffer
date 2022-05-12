@@ -36,6 +36,8 @@ hex (19):
 
 ```sh
 ./vendor/bin/phpunit .
+
+# code coverage
 ./vendor/bin/phpunit . --coverage-html coverage
 ```
 
