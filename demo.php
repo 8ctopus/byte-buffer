@@ -31,3 +31,11 @@ echo $buffer . "\n";
 printf("%08x\n", $buffer->readDword());
 printf("%04x\n", $buffer->readWord());
 printf("%04x\n", $buffer->readWord());
+
+$buffer = (new ByteBuffer())
+    ->setEndian(Endian::LittleEndian)
+    ->writeString('World')
+    ->seek(0, Origin::Start)
+    ->insertString('Hello');
+
+echo $buffer . "\n";

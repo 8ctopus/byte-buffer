@@ -146,7 +146,7 @@ class ByteBuffer implements ArrayAccess
     public function readWord() : int
     {
         if ($this->endian === Endian::None) {
-            throw new ByteBufferException('endian not set');
+                throw new ByteBufferException('endian not set');
         }
 
         return unpack($this->endian === Endian::LittleEndian ? 'v' : 'n', $this->read(2))[1];
@@ -255,7 +255,11 @@ class ByteBuffer implements ArrayAccess
 
     public function writeChars(string $data) : self
     {
-        $this->data .= $data;
+        if ($this->position === $this->length()) {
+            $this->data .= $data;
+        } else {
+            $this->data = substr_replace($this->data, $data, $this->position, strlen($data));
+        }
 
         $this->position += strlen($data);
 
@@ -264,12 +268,47 @@ class ByteBuffer implements ArrayAccess
 
     public function writeString(string $data) : self
     {
-        $this->data .= $data;
-        $this->data .= chr(0x0);
+        $data .= chr(0x0);
 
-        $this->position += strlen($data) + 1;
+        if ($this->position === $this->length()) {
+            $this->data .= $data;
+        } else {
+            $this->data = substr_replace($this->data, $data, $this->position, strlen($data));
+        }
+
+        $this->position += strlen($data);
 
         return $this;
+    }
+
+    public function insertByte(int $data) : self
+    {
+        $this->data = substr_replace($this->data, str_pad('', 1), $this->position, 0);
+        return $this->insertByte($data);
+    }
+
+    public function insertWord(int $data) : self
+    {
+        $this->data = substr_replace($this->data, str_pad('', 2), $this->position, 0);
+        return $this->writeWord($data);
+    }
+
+    public function insertDword(int $data) : self
+    {
+        $this->data = substr_replace($this->data, str_pad('', 4), $this->position, 0);
+        return $this->writeDword($data);
+    }
+
+    public function insertChars(string $data) : self
+    {
+        $this->data = substr_replace($this->data, str_pad('', strlen($data)), $this->position, 0);
+        return $this->writeChars($data);
+    }
+
+    public function insertString(string $data) : self
+    {
+        $this->data = substr_replace($this->data, str_pad('', strlen($data) + 1), $this->position, 0);
+        return $this->writeString($data);
     }
 
     public function invert() : self
