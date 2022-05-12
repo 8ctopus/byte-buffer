@@ -22,9 +22,9 @@ require_once 'vendor/autoload.php';
 $buffer = (new ByteBuffer())
     ->setEndian(Endian::LittleEndian)
     ->writeString('World')
-    ->seek(0, Origin::Start);
+    ->seek(0, Origin::Start)
     ->insertString('Hello')
-    ->seek(0, Origin::End);
+    ->seek(0, Origin::End)
     ->writeByte(0x07)
     ->writeWord(0xFFFF)
     ->writeDword(0xAABBCCDD)
@@ -40,8 +40,13 @@ echo $buffer->readDword();
 ```
 
 ```txt
-hex (19):
-48656c6c 6f00576f 726c6400 07ffffdd ccbbaa - Hello.World........
+hex (19): 48656c6c 6f00576f 726c6400 07ffffdd ccbbaa - Hello.World........
+
+Hello
+World
+7
+65535
+2864434397
 ```
 
 ## run tests
