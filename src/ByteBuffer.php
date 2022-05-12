@@ -233,38 +233,49 @@ class ByteBuffer implements ArrayAccess
         return $this;
     }
 
-    public function offsetSet($offset, $value) : void
+    public function offsetGet(mixed $offset) : int
     {
-        if (is_null($offset)) {
-            throw new BufferException('invalid offset');
-            //$this->data[] = $value;
-        } else {
-            if ($offset >= $this->length()) {
-                throw new BufferException('out of range');
-            }
-
-            $this->data[$offset] = $value;
+        if (gettype($offset) !== 'integer') {
+            throw new BufferException('offset must be integer');
         }
-    }
 
-    public function offsetExists($offset) : bool
-    {
-        return isset($this->data[$offset]);
-    }
-
-    public function offsetUnset($offset) : void
-    {
-        throw new BufferException();
-        //unset($this->data[$offset]);
-    }
-
-    public function offsetGet($offset) : int
-    {
-        if ($offset >= $this->length()) {
+        if ($offset >= $this->length() || $offset < 0) {
             throw new BufferException('out of range');
         }
 
         return ord($this->data[$offset]);
+    }
+
+    public function offsetSet(mixed $offset, mixed $value) : void
+    {
+        if (gettype($offset) !== 'integer') {
+            throw new BufferException('offset must be integer');
+        }
+
+        if ($offset >= $this->length() || $offset < 0) {
+            throw new BufferException('out of range');
+        }
+
+        $this->data[$offset] = $value;
+    }
+
+    public function offsetExists(mixed $offset) : bool
+    {
+        if (gettype($offset) !== 'integer') {
+            throw new BufferException('offset must be integer');
+        }
+
+        if ($offset >= 0 && $offset < $this->length()) {
+            return true;
+        }
+
+        return true;
+    }
+
+    public function offsetUnset(mixed $offset) : void
+    {
+        throw new BufferException();
+        //unset($this->data[$offset]);
     }
 
     public function crc32b(bool $asString = false) : int|string

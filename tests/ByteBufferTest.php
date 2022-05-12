@@ -116,4 +116,27 @@ final class ByteBufferTest extends TestCase
 
         $this->assertEquals(0x04030201, $buffer->readDword());
     }
+
+    public function testArrayAccess() : void
+    {
+        $str = 'abcdef';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars('------');
+
+        // set offsets
+        for ($i = 0; $i < strlen($str); ++$i) {
+            $buffer[$i] = $str[$i];
+        }
+
+        // get offsets
+        for ($i = 0; $i < strlen($str); ++$i) {
+            $this->assertEquals(ord($str[$i]), $buffer[$i]);
+        }
+
+        $this->expectException(BufferException::class);
+
+        $buffer[strlen($str)];
+    }
 }
