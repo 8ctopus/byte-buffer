@@ -135,8 +135,70 @@ final class ByteBufferTest extends TestCase
             $this->assertEquals(ord($str[$i]), $buffer[$i]);
         }
 
+    }
+
+    public function testArrayAccess2() : void
+    {
+        $str = 'abcdef';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
         $this->expectException(BufferException::class);
 
         $buffer[strlen($str)];
     }
+
+    public function testArrayAccess3() : void
+    {
+        $str = 'abcdef';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
+        $this->expectException(BufferException::class);
+
+        $buffer[strlen($str)] = ord('a');
+    }
+
+    public function testArrayAccess4() : void
+    {
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian);
+
+        $this->expectException(BufferException::class);
+
+        $buffer['a'];
+    }
+
+    public function testArrayAccess5() : void
+    {
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian);
+
+        $this->expectException(BufferException::class);
+
+        $buffer['a'] = ord('a');
+    }
+
+/*
+    public function testArrayAccessOffsetExists() : void
+    {
+        $str = 'abcdef';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
+        $i = 0;
+
+        for (; $i < strlen($str); ++$i) {
+            $this->assertTrue(isset($str[$i]));
+        }
+
+        $this->assertFalse(isset($str[$i]));
+    }
+*/
 }
