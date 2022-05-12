@@ -15,18 +15,28 @@ composer require 8ctopus/byte-buffer
 ```php
 use Oct8pus\ByteBuffer\ByteBuffer;
 use Oct8pus\ByteBuffer\Endian;
+use Oct8pus\ByteBuffer\Origin;
 
 require_once 'vendor/autoload.php';
 
 $buffer = (new ByteBuffer())
     ->setEndian(Endian::LittleEndian)
-    ->writeString('Hello')
     ->writeString('World')
+    ->seek(0, Origin::Start);
+    ->insertString('Hello')
+    ->seek(0, Origin::End);
     ->writeByte(0x07)
     ->writeWord(0xFFFF)
-    ->writeDword(0xAABBCCDD);
+    ->writeDword(0xAABBCCDD)
+    ->seek(0, Origin::Start);
 
 echo $buffer . "\n";
+
+echo $buffer->readString();
+echo $buffer->readString();
+echo $buffer->readByte();
+echo $buffer->readWord();
+echo $buffer->readDword();
 ```
 
 ```txt
