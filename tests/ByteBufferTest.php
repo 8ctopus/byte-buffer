@@ -202,7 +202,7 @@ final class ByteBufferTest extends TestCase
     }
 */
 
-    public function testToString() : void
+    public function testCastToString() : void
     {
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian)
@@ -211,4 +211,25 @@ final class ByteBufferTest extends TestCase
         $this->assertEquals("hex (6): \n61626364 6566 - abcdef\n", (string) $buffer);
     }
 
+    public function testStringMethod() : void
+    {
+        $str = 'abcdef';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
+        $this->assertEquals($str, $buffer->string());
+    }
+
+    public function testCrc() : void
+    {
+        $str = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
+        $this->assertEquals(hash('crc32b', $str, false), $buffer->crc32b(true));
+    }
 }

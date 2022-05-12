@@ -148,7 +148,9 @@ class ByteBuffer implements ArrayAccess
             $str .= $data;
         }
 
+        // @codeCoverageIgnoreStart
         throw new BufferException('unhandled exception');
+        // @codeCoverageIgnoreEnd
     }
 
     public function truncate() : self
