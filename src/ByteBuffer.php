@@ -21,7 +21,8 @@ enum Origin
 }
 
 class ByteBufferException extends Exception
-{}
+{
+}
 
 class ByteBuffer implements ArrayAccess
 {

@@ -112,8 +112,8 @@ final class ByteBufferTest extends TestCase
             ->writeString('Hello')
             ->writeChars('World')
             ->writeByte(0x01)
-            ->writeWord(0xffee)
-            ->writeDword(0xaabbccdd)
+            ->writeWord(0xFFEE)
+            ->writeDword(0xAABBCCDD)
             ->seek(0, Origin::Start);
 
         $this->assertEquals('Hello', $buffer->readString());
@@ -121,20 +121,20 @@ final class ByteBufferTest extends TestCase
         $this->assertEquals(11, $buffer->position());
         $this->assertEquals(0x01, $buffer->readByte());
         $this->assertEquals(12, $buffer->position());
-        $this->assertEquals(0xffee, $buffer->readWord());
+        $this->assertEquals(0xFFEE, $buffer->readWord());
         $this->assertEquals(14, $buffer->position());
-        $this->assertEquals(0xaabbccdd, $buffer->readDword());
+        $this->assertEquals(0xAABBCCDD, $buffer->readDword());
 
         $buffer
             ->seek(-7, Origin::Current)
             ->writeByte(0x11)
             ->writeWord(0x7766)
-            ->writeDword(0xffeeddaa)
+            ->writeDword(0xFFEEDDAA)
             ->seek(-7, Origin::End);
 
         $this->assertEquals(0x11, $buffer->readByte());
         $this->assertEquals(0x7766, $buffer->readWord());
-        $this->assertEquals(0xffeeddaa, $buffer->readDword());
+        $this->assertEquals(0xFFEEDDAA, $buffer->readDword());
     }
 
     public function testReadWriteBE() : void
@@ -144,8 +144,8 @@ final class ByteBufferTest extends TestCase
             ->writeString('Hello')
             ->writeChars('World')
             ->writeByte(0x01)
-            ->writeWord(0xffee)
-            ->writeDword(0xaabbccdd)
+            ->writeWord(0xFFEE)
+            ->writeDword(0xAABBCCDD)
             ->seek(0, Origin::Start);
 
         $this->assertEquals('Hello', $buffer->readString());
@@ -153,20 +153,20 @@ final class ByteBufferTest extends TestCase
         $this->assertEquals(11, $buffer->position());
         $this->assertEquals(0x01, $buffer->readByte());
         $this->assertEquals(12, $buffer->position());
-        $this->assertEquals(0xffee, $buffer->readWord());
+        $this->assertEquals(0xFFEE, $buffer->readWord());
         $this->assertEquals(14, $buffer->position());
-        $this->assertEquals(0xaabbccdd, $buffer->readDword());
+        $this->assertEquals(0xAABBCCDD, $buffer->readDword());
 
         $buffer
             ->seek(-7, Origin::Current)
             ->writeByte(0x11)
             ->writeWord(0x7766)
-            ->writeDword(0xffeeddaa)
+            ->writeDword(0xFFEEDDAA)
             ->seek(-7, Origin::End);
 
         $this->assertEquals(0x11, $buffer->readByte());
         $this->assertEquals(0x7766, $buffer->readWord());
-        $this->assertEquals(0xffeeddaa, $buffer->readDword());
+        $this->assertEquals(0xFFEEDDAA, $buffer->readDword());
     }
 
     public function testReadStringException() : void
@@ -216,7 +216,6 @@ final class ByteBufferTest extends TestCase
         for ($i = 0; $i < strlen($str); ++$i) {
             $this->assertEquals(ord($str[$i]), $buffer[$i]);
         }
-
     }
 
     public function testArrayAccess2() : void

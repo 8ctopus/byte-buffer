@@ -14,8 +14,8 @@ $buffer = (new ByteBuffer())
     ->writeString('Hello')
     ->writeString('World')
     ->writeByte(0x07)
-    ->writeWord(0xffff)
-    ->writeDword(0xaabbccdd);
+    ->writeWord(0xFFFF)
+    ->writeDword(0xAABBCCDD);
 
 echo $buffer . "\n";
 
@@ -23,7 +23,7 @@ $buffer
     ->truncate()
     ->writeDword(0x40302010)
     ->writeWord(0x0)
-    ->writeWord(0xffee)
+    ->writeWord(0xFFEE)
     ->seek(0, Origin::Start);
 
 echo $buffer . "\n";
