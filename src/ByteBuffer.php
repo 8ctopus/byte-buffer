@@ -192,8 +192,14 @@ class ByteBuffer implements ArrayAccess
 
     public function writeByte(int $data) : self
     {
-        $this->data .= chr($data & 0x000000FF);
+        $data = chr($data & 0x000000FF);
         //$this->data .= pack('C', $data);
+
+        if ($this->position = $this->length()) {
+            $this->data .= $data;
+        } else {
+            $this->data = substr_replace($this->data, $data, $this->position, 1);
+        }
 
         ++$this->position;
 
@@ -206,10 +212,15 @@ class ByteBuffer implements ArrayAccess
             throw new ByteBufferException('endian not set');
         }
 
-        $this->data .= pack($this->endian === Endian::LittleEndian ? 'v' : 'n', $data);
-
+        $data = pack($this->endian === Endian::LittleEndian ? 'v' : 'n', $data);
         //$this->data .= chr(($data & 0x0000ff00) >> 8);
         //$this->data .= chr($data & 0x000000ff);
+
+        if ($this->position = $this->length()) {
+            $this->data .= $data;
+        } else {
+            $this->data = substr_replace($this->data, $data, $this->position, 2);
+        }
 
         $this->position += 2;
 
@@ -222,12 +233,17 @@ class ByteBuffer implements ArrayAccess
             throw new ByteBufferException('endian not set');
         }
 
-        $this->data .= pack($this->endian === Endian::LittleEndian ? 'V' : 'N', $data);
-
+        $data = pack($this->endian === Endian::LittleEndian ? 'V' : 'N', $data);
         //$this->data .= chr(($data & 0xff000000) >> 24);
         //$this->data .= chr(($data & 0x00ff0000) >> 16);
         //$this->data .= chr(($data & 0x0000ff00) >> 8);
         //$this->data .= chr($data & 0x000000ff);
+
+        if ($this->position = $this->length()) {
+            $this->data .= $data;
+        } else {
+            $this->data = substr_replace($this->data, $data, $this->position, 4);
+        }
 
         $this->position += 4;
 
