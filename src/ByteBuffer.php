@@ -61,7 +61,7 @@ class ByteBuffer implements ArrayAccess
 
             $data = ord($this->data[$i]);
 
-            $ascii .= ord($this->data[$i]) >= 0x20 ? $this->data[$i] : '.';
+            $ascii .= ($data >= 0x20 && $data < 0x7F) ? $this->data[$i] : '.';
         }
 
         return $hex . ' - ' . $ascii . "\n";

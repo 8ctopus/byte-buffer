@@ -20,10 +20,16 @@ $buffer = (new ByteBuffer())
     ->setEndian(Endian::LittleEndian)
     ->writeString('Hello')
     ->writeString('World')
-    ->writeWord(0xffff)
-    ->writeDword(0xaabbccdd);
+    ->writeByte(0x07)
+    ->writeWord(0xFFFF)
+    ->writeDword(0xAABBCCDD);
 
 echo $buffer . "\n";
+```
+
+```txt
+hex (19):
+48656c6c 6f00576f 726c6400 07ffffdd ccbbaa - Hello.World........
 ```
 
 ## run tests
