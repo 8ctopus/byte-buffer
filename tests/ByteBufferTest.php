@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-use Oct8pus\ByteBuffer\Buffer;
+use Oct8pus\ByteBuffer\ByteBuffer;
 use Oct8pus\ByteBuffer\Endian;
 use Oct8pus\ByteBuffer\BufferException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @covers \Oct8pus\ByteBuffer\Buffer
+ * @covers \Oct8pus\ByteBuffer\ByteBuffer
  */
-final class BufferTest extends TestCase
+final class ByteBufferTest extends TestCase
 {
     public function setUp() : void
     {
@@ -22,13 +22,13 @@ final class BufferTest extends TestCase
     {
         $this->expectException(AssertionError::class);
 
-        $buffer = (new Buffer())
+        $buffer = (new ByteBuffer())
             ->writeWord(0x0000);
     }
 
     public function testEndian() : void
     {
-        $buffer = (new Buffer())
+        $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
         $this->assertEquals(Endian::LittleEndian, $buffer->endian());
@@ -36,7 +36,7 @@ final class BufferTest extends TestCase
 
     public function testLength() : void
     {
-        $buffer = (new Buffer())
+        $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
         $this->assertEquals(0, $buffer->length());
@@ -52,7 +52,7 @@ final class BufferTest extends TestCase
 
     public function testPosition() : void
     {
-        $buffer = (new Buffer())
+        $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
         $this->assertEquals(0, $buffer->position());
@@ -68,7 +68,7 @@ final class BufferTest extends TestCase
 
     public function testReadWrite() : void
     {
-        $buffer = (new Buffer())
+        $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian)
             ->writeString('Hello')
             ->writeChars('World')
@@ -91,7 +91,7 @@ final class BufferTest extends TestCase
     {
         $this->expectException(AssertionError::class);
 
-        $buffer = (new Buffer())
+        $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian)
             ->writeChars('Hello')
             ->setPosition(0);
@@ -101,7 +101,7 @@ final class BufferTest extends TestCase
 
     public function testInversion() : void
     {
-        $buffer = (new Buffer())
+        $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian)
             ->writeChars('AABBCC');
 

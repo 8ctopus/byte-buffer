@@ -11,11 +11,11 @@ composer require 8ctopus/byte-buffer
 ## demo
 
 ```php
-use oct8pus\ByteBuffer\Buffer;
+use oct8pus\ByteBuffer\ByteBuffer;
 
 require_once 'vendor/autoload.php';
 
-$router = new Buffer();
+$router = new ByteBuffer();
 
 ```
 
@@ -23,7 +23,7 @@ $router = new Buffer();
 
 ```sh
 ./vendor/bin/phpunit .
-./vendor/bin/phpunit . --coverage-html
+./vendor/bin/phpunit . --coverage-html coverage
 ```
 
 ## clean code

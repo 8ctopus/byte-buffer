@@ -1,6 +1,6 @@
 <?php
 
-use Oct8pus\ByteBuffer\Buffer;
+use Oct8pus\ByteBuffer\ByteBuffer;
 use Oct8pus\ByteBuffer\Endian;
 
 require_once './vendor/autoload.php';
@@ -8,7 +8,7 @@ require_once './vendor/autoload.php';
 // command line error handler
 (new \NunoMaduro\Collision\Provider())->register();
 
-$buffer = (new Buffer())
+$buffer = (new ByteBuffer())
     ->setEndian(Endian::LittleEndian)
     ->writeString('Hello')
     ->writeString('World');
@@ -17,7 +17,7 @@ echo $buffer . "\n";
 echo $buffer[0] ."\n";
 echo $buffer[1] ."\n";
 
-$buffer = (new Buffer())
+$buffer = (new ByteBuffer())
     ->setEndian(Endian::LittleEndian)
     ->writeDword(0x40302010)
     ->writeWord(0x0)

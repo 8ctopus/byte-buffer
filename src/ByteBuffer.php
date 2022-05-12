@@ -19,7 +19,7 @@ class BufferException extends Exception
 
 }
 
-class Buffer implements ArrayAccess
+class ByteBuffer implements ArrayAccess
 {
     private const INT_SIZE = 4;
 
