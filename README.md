@@ -32,11 +32,12 @@ $buffer = (new ByteBuffer())
 
 echo $buffer . "\n";
 
-echo $buffer->readString();
-echo $buffer->readString();
-echo $buffer->readByte();
-echo $buffer->readWord();
-echo $buffer->readDword();
+echo $buffer->readString() . "\n";
+echo $buffer->readString() . "\n";
+echo $buffer->readByte() . "\n";
+echo $buffer->readWord() . "\n";
+echo $buffer->readDword() . "\n";
+echo chr($buffer[0]) . "\n";
 ```
 
 ```txt
@@ -47,6 +48,7 @@ World
 7
 65535
 2864434397
+H
 ```
 
 ## run tests
