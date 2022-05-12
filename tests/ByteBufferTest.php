@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Oct8pus\ByteBuffer\ByteBuffer;
 use Oct8pus\ByteBuffer\Endian;
-use Oct8pus\ByteBuffer\BufferException;
+use Oct8pus\ByteBuffer\ByteBufferException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -145,7 +145,7 @@ final class ByteBufferTest extends TestCase
             ->setEndian(Endian::LittleEndian)
             ->writeChars($str);
 
-        $this->expectException(BufferException::class);
+        $this->expectException(ByteBufferException::class);
 
         $buffer[strlen($str)];
     }
@@ -158,7 +158,7 @@ final class ByteBufferTest extends TestCase
             ->setEndian(Endian::LittleEndian)
             ->writeChars($str);
 
-        $this->expectException(BufferException::class);
+        $this->expectException(ByteBufferException::class);
 
         $buffer[strlen($str)] = ord('a');
     }
@@ -168,7 +168,7 @@ final class ByteBufferTest extends TestCase
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
-        $this->expectException(BufferException::class);
+        $this->expectException(ByteBufferException::class);
 
         $buffer['a'];
     }
@@ -178,7 +178,7 @@ final class ByteBufferTest extends TestCase
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
-        $this->expectException(BufferException::class);
+        $this->expectException(ByteBufferException::class);
 
         $buffer['a'] = ord('a');
     }
@@ -199,7 +199,7 @@ final class ByteBufferTest extends TestCase
 
         $this->assertFalse(isset($buffer[$i]));
 
-        $this->expectException(BufferException::class);
+        $this->expectException(ByteBufferException::class);
 
         isset($buffer['a']);
     }

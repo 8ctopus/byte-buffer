@@ -14,7 +14,7 @@ enum Endian
     case BigEndian;
 }
 
-class BufferException extends Exception
+class ByteBufferException extends Exception
 {
 
 }
@@ -149,7 +149,7 @@ class ByteBuffer implements ArrayAccess
         }
 
         // @codeCoverageIgnoreStart
-        throw new BufferException('unhandled exception');
+        throw new ByteBufferException('unhandled exception');
         // @codeCoverageIgnoreEnd
     }
 
@@ -238,11 +238,11 @@ class ByteBuffer implements ArrayAccess
     public function offsetGet(mixed $offset) : int
     {
         if (gettype($offset) !== 'integer') {
-            throw new BufferException('offset must be integer');
+            throw new ByteBufferException('offset must be integer');
         }
 
         if ($offset >= $this->length() || $offset < 0) {
-            throw new BufferException('out of range');
+            throw new ByteBufferException('out of range');
         }
 
         return ord($this->data[$offset]);
@@ -251,11 +251,11 @@ class ByteBuffer implements ArrayAccess
     public function offsetSet(mixed $offset, mixed $value) : void
     {
         if (gettype($offset) !== 'integer') {
-            throw new BufferException('offset must be integer');
+            throw new ByteBufferException('offset must be integer');
         }
 
         if ($offset >= $this->length() || $offset < 0) {
-            throw new BufferException('out of range');
+            throw new ByteBufferException('out of range');
         }
 
         $this->data[$offset] = $value;
@@ -264,7 +264,7 @@ class ByteBuffer implements ArrayAccess
     public function offsetExists(mixed $offset) : bool
     {
         if (gettype($offset) !== 'integer') {
-            throw new BufferException('offset must be integer');
+            throw new ByteBufferException('offset must be integer');
         }
 
         if ($offset >= 0 && $offset < $this->length()) {
@@ -276,7 +276,7 @@ class ByteBuffer implements ArrayAccess
 
     public function offsetUnset(mixed $offset) : void
     {
-        throw new BufferException();
+        throw new ByteBufferException();
         //unset($this->data[$offset]);
     }
 
