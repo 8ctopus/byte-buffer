@@ -183,7 +183,6 @@ final class ByteBufferTest extends TestCase
         $buffer['a'] = ord('a');
     }
 
-/*
     public function testArrayAccessOffsetExists() : void
     {
         $str = 'abcdef';
@@ -195,12 +194,15 @@ final class ByteBufferTest extends TestCase
         $i = 0;
 
         for (; $i < strlen($str); ++$i) {
-            $this->assertTrue(isset($str[$i]));
+            $this->assertTrue(isset($buffer[$i]));
         }
 
-        $this->assertFalse(isset($str[$i]));
+        $this->assertFalse(isset($buffer[$i]));
+
+        $this->expectException(BufferException::class);
+
+        isset($buffer['a']);
     }
-*/
 
     public function testCastToString() : void
     {

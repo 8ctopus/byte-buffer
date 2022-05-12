@@ -271,7 +271,7 @@ class ByteBuffer implements ArrayAccess
             return true;
         }
 
-        return true;
+        return false;
     }
 
     public function offsetUnset(mixed $offset) : void
