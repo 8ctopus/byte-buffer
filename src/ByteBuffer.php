@@ -284,7 +284,7 @@ class ByteBuffer implements ArrayAccess
     public function insertByte(int $data) : self
     {
         $this->data = substr_replace($this->data, str_pad('', 1), $this->position, 0);
-        return $this->insertByte($data);
+        return $this->writeByte($data);
     }
 
     public function insertWord(int $data) : self
