@@ -90,7 +90,9 @@ class ByteBuffer implements ArrayAccess
 
     public function setPosition($position) : self
     {
-        assert($position >= 0 && $position < strlen($this->data));
+        if ($position < 0 && $position >= strlen($this->data)) {
+            throw new ByteBufferException('out of range');
+        }
 
         $this->position = $position;
 
@@ -99,7 +101,9 @@ class ByteBuffer implements ArrayAccess
 
     public function read(int $length) : string
     {
-        assert($this->length() >= $this->position + $length);
+        if ($this->position + $length < 0 || $this->position + $length > $this->length()) {
+            throw new ByteBufferException('out of range');
+        }
 
         $data = substr($this->data, $this->position, $length);
 
@@ -117,14 +121,18 @@ class ByteBuffer implements ArrayAccess
 
     public function readWord() : int
     {
-        assert($this->endian !== Endian::None);
+        if ($this->endian === Endian::None) {
+            throw new ByteBufferException('unset endian');
+        }
 
         return unpack($this->endian === Endian::LittleEndian ? 'v' : 'n', $this->read(2))[1];
     }
 
     public function readDword() : int
     {
-        assert($this->endian !== Endian::None);
+        if ($this->endian === Endian::None) {
+            throw new ByteBufferException('unset endian');
+        }
 
         return unpack($this->endian === Endian::LittleEndian ? 'V' : 'N', $this->read(4))[1];
     }
@@ -173,7 +181,9 @@ class ByteBuffer implements ArrayAccess
 
     public function writeWord(int $data) : self
     {
-        assert($this->endian !== Endian::None);
+        if ($this->endian === Endian::None) {
+            throw new ByteBufferException('unset endian');
+        }
 
         $this->data .= pack($this->endian === Endian::LittleEndian ? 'v' : 'n', $data);
 
@@ -187,7 +197,9 @@ class ByteBuffer implements ArrayAccess
 
     public function writeDword(int $data) : self
     {
-        assert($this->endian !== Endian::None);
+        if ($this->endian === Endian::None) {
+            throw new ByteBufferException('unset endian');
+        }
 
         $this->data .= pack($this->endian === Endian::LittleEndian ? 'V' : 'N', $data);
 
@@ -276,7 +288,7 @@ class ByteBuffer implements ArrayAccess
 
     public function offsetUnset(mixed $offset) : void
     {
-        throw new ByteBufferException();
+        throw new ByteBufferException('not implemented');
         //unset($this->data[$offset]);
     }
 

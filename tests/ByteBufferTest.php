@@ -18,9 +18,9 @@ final class ByteBufferTest extends TestCase
         parent::setUp();
     }
 
-    public function testNoEndianAssertion() : void
+    public function testNoEndian() : void
     {
-        $this->expectException(AssertionError::class);
+        $this->expectException(ByteBufferException::class);
 
         $buffer = (new ByteBuffer())
             ->writeWord(0x0000);
@@ -89,7 +89,7 @@ final class ByteBufferTest extends TestCase
 
     public function testReadStringException() : void
     {
-        $this->expectException(AssertionError::class);
+        $this->expectException(ByteBufferException::class);
 
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian)
