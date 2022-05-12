@@ -14,11 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class ByteBufferTest extends TestCase
 {
-    public function setUp() : void
-    {
-        parent::setUp();
-    }
-
     public function testNoEndianException() : void
     {
         $buffer = new ByteBuffer();

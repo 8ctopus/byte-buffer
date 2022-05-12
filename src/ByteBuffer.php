@@ -107,8 +107,10 @@ class ByteBuffer implements ArrayAccess
                 $position = $this->length() + $offset;
                 break;
 
+            // @codeCoverageIgnoreStart
             default:
                 throw new ByteBufferException('origin not set');
+            // @codeCoverageIgnoreEnd
         }
 
         if ($position < 0 || $position > $this->length()) {
