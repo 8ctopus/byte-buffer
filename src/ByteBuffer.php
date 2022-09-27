@@ -7,14 +7,12 @@ use Exception;
 
 enum Endian
 {
-    case None;
     case LittleEndian;
     case BigEndian;
 }
 
 enum Origin
 {
-    case None;
     case Start;
     case Current;
     case End;
@@ -26,13 +24,13 @@ class ByteBufferException extends Exception
 
 class ByteBuffer implements ArrayAccess
 {
-    private Endian $endian;
+    private ?Endian $endian;
     private string $data;
     private int $position;
 
     public function __construct()
     {
-        $this->endian = Endian::None;
+        $this->endian = null;
         $this->data = '';
         $this->position = 0;
     }
@@ -156,7 +154,7 @@ class ByteBuffer implements ArrayAccess
 
     public function readWord() : int
     {
-        if ($this->endian === Endian::None) {
+        if (!$this->endian) {
             throw new ByteBufferException('endian not set');
         }
 
@@ -165,7 +163,7 @@ class ByteBuffer implements ArrayAccess
 
     public function readDword() : int
     {
-        if ($this->endian === Endian::None) {
+        if (!$this->endian) {
             throw new ByteBufferException('endian not set');
         }
 
@@ -222,7 +220,7 @@ class ByteBuffer implements ArrayAccess
 
     public function writeWord(int $data) : self
     {
-        if ($this->endian === Endian::None) {
+        if (!$this->endian) {
             throw new ByteBufferException('endian not set');
         }
 
@@ -243,7 +241,7 @@ class ByteBuffer implements ArrayAccess
 
     public function writeDword(int $data) : self
     {
-        if ($this->endian === Endian::None) {
+        if (!$this->endian) {
             throw new ByteBufferException('endian not set');
         }
 
