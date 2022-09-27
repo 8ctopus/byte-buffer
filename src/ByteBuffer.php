@@ -27,7 +27,6 @@ class ByteBufferException extends Exception
 class ByteBuffer implements ArrayAccess
 {
     private Endian $endian;
-
     private string $data;
     private int $position;
 
@@ -122,14 +121,12 @@ class ByteBuffer implements ArrayAccess
                 $position = $this->length() + $offset;
                 break;
 
-            // @codeCoverageIgnoreStart
             default:
                 throw new ByteBufferException('origin not set');
-            // @codeCoverageIgnoreEnd
         }
 
         if ($position < 0 || $position > $this->length()) {
-            throw new ByteBufferException('position out of range');
+            throw new ByteBufferException('out of range');
         }
 
         $this->position = $position;
