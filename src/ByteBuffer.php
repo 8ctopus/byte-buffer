@@ -42,7 +42,7 @@ class ByteBuffer implements ArrayAccess
     {
         $length = $this->length();
 
-        $output = "hex ({$length}):";
+        $output = "hex ({$this->position}/{$length}):";
 
         if ($length > 20) {
             $output .= "\n";
@@ -74,7 +74,7 @@ class ByteBuffer implements ArrayAccess
             if ($length > 20) {
                 $output .= str_pad($hex, 44) . ' - ' . $ascii . "\n";
             } else {
-                $output .= ' '. $hex . ' - ' . $ascii . "\n";
+                $output .= ' ' . $hex . ' - ' . $ascii . "\n";
             }
         }
 
@@ -160,7 +160,7 @@ class ByteBuffer implements ArrayAccess
     public function readWord() : int
     {
         if ($this->endian === Endian::None) {
-                throw new ByteBufferException('endian not set');
+            throw new ByteBufferException('endian not set');
         }
 
         return unpack($this->endian === Endian::LittleEndian ? 'v' : 'n', $this->read(2))[1];
@@ -295,42 +295,106 @@ class ByteBuffer implements ArrayAccess
         return $this;
     }
 
+    /**
+     * Insert byte
+     *
+     * @param int $data
+     *
+     * @return self
+     */
     public function insertByte(int $data) : self
     {
         $this->data = substr_replace($this->data, str_pad('', 1), $this->position, 0);
         return $this->writeByte($data);
     }
 
+    /**
+     * Insert Word
+     *
+     * @param int $data
+     *
+     * @return self
+     */
     public function insertWord(int $data) : self
     {
         $this->data = substr_replace($this->data, str_pad('', 2), $this->position, 0);
         return $this->writeWord($data);
     }
 
+    /**
+     * Insert DWORD
+     *
+     * @param int $data
+     *
+     * @return self
+     */
     public function insertDword(int $data) : self
     {
         $this->data = substr_replace($this->data, str_pad('', 4), $this->position, 0);
         return $this->writeDword($data);
     }
 
+    /**
+     * Insert chards
+     *
+     * @param string $data
+     *
+     * @return self
+     */
     public function insertChars(string $data) : self
     {
         $this->data = substr_replace($this->data, str_pad('', strlen($data)), $this->position, 0);
         return $this->writeChars($data);
     }
 
+    /**
+     * Insert string
+     *
+     * @param string $data
+     *
+     * @return self
+     */
     public function insertString(string $data) : self
     {
         $this->data = substr_replace($this->data, str_pad('', strlen($data) + 1), $this->position, 0);
         return $this->writeString($data);
     }
 
+    /**
+     * Delete part of buffer
+     *
+     * @param int $position
+     * @param int $length
+     *
+     * @return self
+     */
     public function delete(int $position, int $length) : self
     {
         $this->data = substr_replace($this->data, '', $position, $length);
         return $this;
     }
 
+    /**
+     * Get buffer substring
+     *
+     * @param int $position
+     * @param int $length
+     *
+     * @return self
+     */
+    public function sub(int $position, int $length) : self
+    {
+        return (new self())
+            ->setEndian($this->endian())
+            ->writeChars(substr($this->data, $position, $length))
+            ->seek(0, Origin::Start);
+    }
+
+    /**
+     * Invert buffer
+     *
+     * @return self
+     */
     public function invert() : self
     {
         $this->seek(0, Origin::Start);

@@ -327,7 +327,7 @@ final class ByteBufferTest extends TestCase
             ->setEndian(Endian::LittleEndian)
             ->writeChars('abcdef');
 
-        $this->assertEquals("hex (6): 61626364 6566 - abcdef\n", (string) $buffer);
+        $this->assertEquals("hex (6/6): 61626364 6566 - abcdef\n", (string) $buffer);
     }
 
     public function testStringMethod() : void
@@ -365,5 +365,18 @@ final class ByteBufferTest extends TestCase
         $buffer->seek(10, Origin::Start);
 
         $this->assertEquals('uvwxyz0123', $buffer->readChars(10));
+    }
+
+    public function testSub() : void
+    {
+        $str = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
+        $buffer = $buffer->sub(10, 10);
+
+        $this->assertEquals('klmnopqrst', $buffer->readChars(10));
     }
 }
