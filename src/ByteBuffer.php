@@ -129,7 +129,7 @@ class ByteBuffer implements ArrayAccess
         }
 
         if ($position < 0 || $position > $this->length()) {
-            throw new ByteBufferException('out of range');
+            throw new ByteBufferException('position out of range');
         }
 
         $this->position = $position;
@@ -323,6 +323,12 @@ class ByteBuffer implements ArrayAccess
     {
         $this->data = substr_replace($this->data, str_pad('', strlen($data) + 1), $this->position, 0);
         return $this->writeString($data);
+    }
+
+    public function delete(int $position, int $length) : self
+    {
+        $this->data = substr_replace($this->data, '', $position, $length);
+        return $this;
     }
 
     public function invert() : self

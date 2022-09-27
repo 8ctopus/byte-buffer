@@ -351,4 +351,19 @@ final class ByteBufferTest extends TestCase
 
         $this->assertEquals(hash('crc32b', $str, false), $buffer->crc32b(true));
     }
+
+    public function testDelete() : void
+    {
+        $str = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
+        $buffer->delete(10, 10);
+
+        $buffer->seek(10, Origin::Start);
+
+        $this->assertEquals('uvwxyz0123', $buffer->readChars(10));
+    }
 }
