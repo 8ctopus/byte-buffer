@@ -22,25 +22,25 @@ final class ByteBufferTest extends TestCase
 
         try {
             $buffer->readWord();
-        } catch (Exception $e) {
+        } catch (ByteBufferException) {
             ++$count;
         }
 
         try {
             $buffer->readDWord();
-        } catch (Exception $e) {
+        } catch (ByteBufferException) {
             ++$count;
         }
 
         try {
             $buffer->writeWord(0x0000);
-        } catch (Exception $e) {
+        } catch (ByteBufferException) {
             ++$count;
         }
 
         try {
             $buffer->writeDWord(0x0000);
-        } catch (Exception $e) {
+        } catch (ByteBufferException) {
             ++$count;
         }
 

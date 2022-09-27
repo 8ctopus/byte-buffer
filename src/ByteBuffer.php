@@ -26,8 +26,6 @@ class ByteBufferException extends Exception
 
 class ByteBuffer implements ArrayAccess
 {
-    private const INT_SIZE = 4;
-
     private Endian $endian;
 
     private string $data;
