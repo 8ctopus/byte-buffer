@@ -35,6 +35,11 @@ class ByteBuffer implements ArrayAccess
         $this->position = 0;
     }
 
+    /**
+     * Convert buffer to string
+     *
+     * @return string
+     */
     public function __toString() : string
     {
         $length = $this->length();
@@ -78,6 +83,11 @@ class ByteBuffer implements ArrayAccess
         return $output;
     }
 
+    /**
+     * Get endian
+     *
+     * @return Endian
+     */
     public function endian() : Endian
     {
         return $this->endian;
@@ -89,21 +99,47 @@ class ByteBuffer implements ArrayAccess
         return $this;
     }
 
-    public function string() : string
-    {
-        return $this->data;
-    }
-
+    /**
+     * Get buffer length
+     *
+     * @return int
+     */
     public function length() : int
     {
         return strlen($this->data);
     }
 
+    /**
+     * Truncate buffer
+     *
+     * @return self
+     */
+    public function truncate() : self
+    {
+        $this->data = '';
+        $this->position = 0;
+
+        return $this;
+    }
+
+    /**
+     * Get current position in buffer
+     *
+     * @return int
+     */
     public function position() : int
     {
         return $this->position;
     }
 
+    /**
+     * Seek buffer
+     *
+     * @param int    $offset
+     * @param Origin $origin
+     *
+     * @return self
+     */
     public function seek(int $offset, Origin $origin) : self
     {
         switch ($origin) {
@@ -132,6 +168,23 @@ class ByteBuffer implements ArrayAccess
         return $this;
     }
 
+    /**
+     * Get buffer internal string
+     *
+     * @return string
+     */
+    public function string() : string
+    {
+        return $this->data;
+    }
+
+    /**
+     * Read from buffer
+     *
+     * @param int $length
+     *
+     * @return string
+     */
     public function read(int $length) : string
     {
         if ($this->position + $length < 0 || $this->position + $length > $this->length()) {
@@ -194,14 +247,13 @@ class ByteBuffer implements ArrayAccess
         // @codeCoverageIgnoreEnd
     }
 
-    public function truncate() : self
-    {
-        $this->data = '';
-        $this->position = 0;
-
-        return $this;
-    }
-
+    /**
+     * Write byte to buffer
+     *
+     * @param int $data
+     *
+     * @return self
+     */
     public function writeByte(int $data) : self
     {
         $data = chr($data & 0x000000FF);
@@ -291,6 +343,36 @@ class ByteBuffer implements ArrayAccess
     }
 
     /**
+     * Delete buffer part
+     *
+     * @param int $position
+     * @param int $length
+     *
+     * @return self
+     */
+    public function delete(int $position, int $length) : self
+    {
+        $this->data = substr_replace($this->data, '', $position, $length);
+        return $this;
+    }
+
+    /**
+     * Copy buffer part
+     *
+     * @param int $position
+     * @param int $length
+     *
+     * @return self
+     */
+    public function copy(int $position, int $length) : self
+    {
+        return (new self())
+            ->setEndian($this->endian())
+            ->writeChars(substr($this->data, $position, $length))
+            ->seek(0, Origin::Start);
+    }
+
+    /**
      * Insert byte
      *
      * @param int $data
@@ -330,7 +412,7 @@ class ByteBuffer implements ArrayAccess
     }
 
     /**
-     * Insert chards
+     * Insert chars
      *
      * @param string $data
      *
@@ -356,36 +438,6 @@ class ByteBuffer implements ArrayAccess
     }
 
     /**
-     * Delete part of buffer
-     *
-     * @param int $position
-     * @param int $length
-     *
-     * @return self
-     */
-    public function delete(int $position, int $length) : self
-    {
-        $this->data = substr_replace($this->data, '', $position, $length);
-        return $this;
-    }
-
-    /**
-     * Get buffer substring
-     *
-     * @param int $position
-     * @param int $length
-     *
-     * @return self
-     */
-    public function sub(int $position, int $length) : self
-    {
-        return (new self())
-            ->setEndian($this->endian())
-            ->writeChars(substr($this->data, $position, $length))
-            ->seek(0, Origin::Start);
-    }
-
-    /**
      * Invert buffer
      *
      * @return self
@@ -403,6 +455,20 @@ class ByteBuffer implements ArrayAccess
         }
 
         return $this;
+    }
+
+    /**
+     * Calculate crc32b checksum
+     *
+     * @param bool $asString
+     *
+     * @return int|string
+     */
+    public function crc32b(bool $asString = false) : int|string
+    {
+        $crc = crc32($this->data);
+
+        return $asString ? dechex($crc) : $crc;
     }
 
     public function offsetGet(mixed $offset) : int
@@ -448,12 +514,5 @@ class ByteBuffer implements ArrayAccess
     {
         throw new ByteBufferException('not implemented');
         //unset($this->data[$offset]);
-    }
-
-    public function crc32b(bool $asString = false) : int|string
-    {
-        $crc = crc32($this->data);
-
-        return $asString ? dechex($crc) : $crc;
     }
 }

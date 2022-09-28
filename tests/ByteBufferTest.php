@@ -375,7 +375,7 @@ final class ByteBufferTest extends TestCase
             ->setEndian(Endian::LittleEndian)
             ->writeChars($str);
 
-        $buffer = $buffer->sub(10, 10);
+        $buffer = $buffer->copy(10, 10);
 
         $this->assertEquals('klmnopqrst', $buffer->readChars(10));
     }

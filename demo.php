@@ -9,33 +9,63 @@ require_once './vendor/autoload.php';
 // command line error handler
 (new \NunoMaduro\Collision\Provider())->register();
 
+echo "Let's create a new little endian ByteBuffer and write Hello World\n";
+
 $buffer = (new ByteBuffer())
     ->setEndian(Endian::LittleEndian)
-    ->writeString('Hello')
-    ->writeString('World')
+    ->writeString('Hello World');
+
+echo $buffer . "\n";
+
+echo "Add byte 0x07, word 0xFFFF and dword 0xAABBCCDD\n";
+
+$buffer
     ->writeByte(0x07)
     ->writeWord(0xFFFF)
     ->writeDword(0xAABBCCDD);
 
-echo $buffer . "\n";
+echo $buffer;
+
+echo "\nSeek buffer back to origin\n";
+
+$buffer->seek(0, Origin::Start);
+
+echo $buffer;
+
+echo "\nRead string from buffer\n";
+
+echo $buffer->readString() . "\n";
+
+echo "\nRead byte, word and dword\n";
+
+printf("0x%02X\n", $buffer->readByte());
+printf("0x%04X\n", $buffer->readword());
+printf("0x%08X\n", $buffer->readDword());
+
+echo "\nDelete World from buffer\n";
+
+$buffer->delete(6, 5);
+
+echo $buffer;
+
+echo "\nCalculate buffer crc32b\n";
+
+echo '0x' . strtoupper($buffer->crc32b(true)) . "\n";
+
+echo "\nInsert Parrot at position 6\n";
 
 $buffer
-    ->truncate()
-    ->writeDword(0x40302010)
-    ->writeWord(0x0)
-    ->writeWord(0xFFEE)
-    ->seek(0, Origin::Start);
+    ->seek(6, Origin::Start)
+    ->insertChars('Parrot');
 
-echo $buffer . "\n";
+echo $buffer;
 
-printf("%08x\n", $buffer->readDword());
-printf("%04x\n", $buffer->readWord());
-printf("%04x\n", $buffer->readWord());
+echo "\nCopy Parrot into a new buffer\n";
 
-$buffer = (new ByteBuffer())
-    ->setEndian(Endian::LittleEndian)
-    ->writeString('World')
-    ->seek(0, Origin::Start)
-    ->insertString('Hello');
+$parrot = $buffer->copy(6, 6);
 
-echo $buffer . "\n";
+echo $parrot;
+
+echo "\nInvert Parrot\n";
+
+echo $parrot->invert();
