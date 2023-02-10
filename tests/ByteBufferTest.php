@@ -44,7 +44,7 @@ final class ByteBufferTest extends TestCase
             ++$count;
         }
 
-        $this->assertEquals(4, $count);
+        static::assertSame(4, $count);
     }
 
     public function testEndian() : void
@@ -52,7 +52,7 @@ final class ByteBufferTest extends TestCase
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
-        $this->assertEquals(Endian::LittleEndian, $buffer->endian());
+        static::assertSame(Endian::LittleEndian, $buffer->endian());
     }
 
     public function testLength() : void
@@ -60,15 +60,15 @@ final class ByteBufferTest extends TestCase
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
-        $this->assertEquals(0, $buffer->length());
+        static::assertSame(0, $buffer->length());
 
         $buffer->writeChars('12345');
 
-        $this->assertEquals(5, $buffer->length());
+        static::assertSame(5, $buffer->length());
 
         $buffer->truncate();
 
-        $this->assertEquals(0, $buffer->length());
+        static::assertSame(0, $buffer->length());
     }
 
     public function testSeekAndPosition() : void
@@ -76,29 +76,29 @@ final class ByteBufferTest extends TestCase
         $buffer = (new ByteBuffer())
             ->setEndian(Endian::LittleEndian);
 
-        $this->assertEquals(0, $buffer->position());
+        static::assertSame(0, $buffer->position());
 
         $str = '12345';
 
         $buffer->writeChars($str);
 
-        $this->assertEquals(strlen($str), $buffer->position());
+        static::assertSame(strlen($str), $buffer->position());
 
         $buffer->seek(0, Origin::Start);
 
-        $this->assertEquals(0, $buffer->position());
+        static::assertSame(0, $buffer->position());
 
         $buffer->seek(0, Origin::End);
 
-        $this->assertEquals(strlen($str), $buffer->position());
+        static::assertSame(strlen($str), $buffer->position());
 
         $buffer->seek(-2, Origin::Current);
 
-        $this->assertEquals(strlen($str) - 2, $buffer->position());
+        static::assertSame(strlen($str) - 2, $buffer->position());
 
         $buffer->seek(+2, Origin::Current);
 
-        $this->assertEquals(strlen($str), $buffer->position());
+        static::assertSame(strlen($str), $buffer->position());
 
         $this->expectException(ByteBufferException::class);
 
@@ -116,14 +116,14 @@ final class ByteBufferTest extends TestCase
             ->writeDword(0xAABBCCDD)
             ->seek(0, Origin::Start);
 
-        $this->assertEquals('Hello', $buffer->readString());
-        $this->assertEquals('World', $buffer->readChars(5));
-        $this->assertEquals(11, $buffer->position());
-        $this->assertEquals(0x01, $buffer->readByte());
-        $this->assertEquals(12, $buffer->position());
-        $this->assertEquals(0xFFEE, $buffer->readWord());
-        $this->assertEquals(14, $buffer->position());
-        $this->assertEquals(0xAABBCCDD, $buffer->readDword());
+        static::assertSame('Hello', $buffer->readString());
+        static::assertSame('World', $buffer->readChars(5));
+        static::assertSame(11, $buffer->position());
+        static::assertSame(0x01, $buffer->readByte());
+        static::assertSame(12, $buffer->position());
+        static::assertSame(0xFFEE, $buffer->readWord());
+        static::assertSame(14, $buffer->position());
+        static::assertSame(0xAABBCCDD, $buffer->readDword());
 
         $buffer
             ->seek(-7, Origin::Current)
@@ -132,9 +132,9 @@ final class ByteBufferTest extends TestCase
             ->writeDword(0xFFEEDDAA)
             ->seek(-7, Origin::End);
 
-        $this->assertEquals(0x11, $buffer->readByte());
-        $this->assertEquals(0x7766, $buffer->readWord());
-        $this->assertEquals(0xFFEEDDAA, $buffer->readDword());
+        static::assertSame(0x11, $buffer->readByte());
+        static::assertSame(0x7766, $buffer->readWord());
+        static::assertSame(0xFFEEDDAA, $buffer->readDword());
     }
 
     public function testReadWriteBE() : void
@@ -148,14 +148,14 @@ final class ByteBufferTest extends TestCase
             ->writeDword(0xAABBCCDD)
             ->seek(0, Origin::Start);
 
-        $this->assertEquals('Hello', $buffer->readString());
-        $this->assertEquals('World', $buffer->readChars(5));
-        $this->assertEquals(11, $buffer->position());
-        $this->assertEquals(0x01, $buffer->readByte());
-        $this->assertEquals(12, $buffer->position());
-        $this->assertEquals(0xFFEE, $buffer->readWord());
-        $this->assertEquals(14, $buffer->position());
-        $this->assertEquals(0xAABBCCDD, $buffer->readDword());
+        static::assertSame('Hello', $buffer->readString());
+        static::assertSame('World', $buffer->readChars(5));
+        static::assertSame(11, $buffer->position());
+        static::assertSame(0x01, $buffer->readByte());
+        static::assertSame(12, $buffer->position());
+        static::assertSame(0xFFEE, $buffer->readWord());
+        static::assertSame(14, $buffer->position());
+        static::assertSame(0xAABBCCDD, $buffer->readDword());
 
         $buffer
             ->seek(-7, Origin::Current)
@@ -164,9 +164,9 @@ final class ByteBufferTest extends TestCase
             ->writeDword(0xFFEEDDAA)
             ->seek(-7, Origin::End);
 
-        $this->assertEquals(0x11, $buffer->readByte());
-        $this->assertEquals(0x7766, $buffer->readWord());
-        $this->assertEquals(0xFFEEDDAA, $buffer->readDword());
+        static::assertSame(0x11, $buffer->readByte());
+        static::assertSame(0x7766, $buffer->readWord());
+        static::assertSame(0xFFEEDDAA, $buffer->readDword());
     }
 
     public function testInserts() : void
@@ -184,14 +184,14 @@ final class ByteBufferTest extends TestCase
             ->insertString('Hello')
             ->seek(0, Origin::Start);
 
-        $this->assertEquals('Hello', $buffer->readString());
-        $this->assertEquals('World', $buffer->readChars(5));
-        $this->assertEquals(11, $buffer->position());
-        $this->assertEquals(0x01, $buffer->readByte());
-        $this->assertEquals(12, $buffer->position());
-        $this->assertEquals(0xFFEE, $buffer->readWord());
-        $this->assertEquals(14, $buffer->position());
-        $this->assertEquals(0xAABBCCDD, $buffer->readDword());
+        static::assertSame('Hello', $buffer->readString());
+        static::assertSame('World', $buffer->readChars(5));
+        static::assertSame(11, $buffer->position());
+        static::assertSame(0x01, $buffer->readByte());
+        static::assertSame(12, $buffer->position());
+        static::assertSame(0xFFEE, $buffer->readWord());
+        static::assertSame(14, $buffer->position());
+        static::assertSame(0xAABBCCDD, $buffer->readDword());
 
         $buffer
             ->seek(-7, Origin::Current)
@@ -200,9 +200,9 @@ final class ByteBufferTest extends TestCase
             ->writeDword(0xFFEEDDAA)
             ->seek(-7, Origin::End);
 
-        $this->assertEquals(0x11, $buffer->readByte());
-        $this->assertEquals(0x7766, $buffer->readWord());
-        $this->assertEquals(0xFFEEDDAA, $buffer->readDword());
+        static::assertSame(0x11, $buffer->readByte());
+        static::assertSame(0x7766, $buffer->readWord());
+        static::assertSame(0xFFEEDDAA, $buffer->readDword());
     }
 
     public function testReadStringException() : void
@@ -225,14 +225,14 @@ final class ByteBufferTest extends TestCase
 
         $buffer->invert();
 
-        $this->assertEquals('CCBBAA', $buffer->readChars(6));
+        static::assertSame('CCBBAA', $buffer->readChars(6));
 
         $buffer
             ->truncate()
             ->writeDword(0x01020304)
             ->invert();
 
-        $this->assertEquals(0x04030201, $buffer->readDword());
+        static::assertSame(0x04030201, $buffer->readDword());
     }
 
     public function testArrayAccess() : void
@@ -250,7 +250,7 @@ final class ByteBufferTest extends TestCase
 
         // get offsets
         for ($i = 0; $i < strlen($str); ++$i) {
-            $this->assertEquals(ord($str[$i]), $buffer[$i]);
+            static::assertSame(ord($str[$i]), $buffer[$i]);
         }
     }
 
@@ -311,10 +311,10 @@ final class ByteBufferTest extends TestCase
         $i = 0;
 
         for (; $i < strlen($str); ++$i) {
-            $this->assertTrue(isset($buffer[$i]));
+            static::assertTrue(isset($buffer[$i]));
         }
 
-        $this->assertFalse(isset($buffer[$i]));
+        static::assertFalse(isset($buffer[$i]));
 
         $this->expectException(ByteBufferException::class);
 
@@ -327,7 +327,7 @@ final class ByteBufferTest extends TestCase
             ->setEndian(Endian::LittleEndian)
             ->writeChars('abcdef');
 
-        $this->assertEquals("hex (6/6): 61626364 6566 - abcdef\n", (string) $buffer);
+        static::assertSame("hex (6/6): 61626364 6566 - abcdef\n", (string) $buffer);
     }
 
     public function testStringMethod() : void
@@ -338,7 +338,7 @@ final class ByteBufferTest extends TestCase
             ->setEndian(Endian::LittleEndian)
             ->writeChars($str);
 
-        $this->assertEquals($str, $buffer->string());
+        static::assertSame($str, $buffer->string());
     }
 
     public function testCrc() : void
@@ -349,7 +349,7 @@ final class ByteBufferTest extends TestCase
             ->setEndian(Endian::LittleEndian)
             ->writeChars($str);
 
-        $this->assertEquals(hash('crc32b', $str, false), $buffer->crc32b(true));
+        static::assertSame(hash('crc32b', $str, false), $buffer->crc32b(true));
     }
 
     public function testDelete() : void
@@ -364,7 +364,7 @@ final class ByteBufferTest extends TestCase
 
         $buffer->seek(10, Origin::Start);
 
-        $this->assertEquals('uvwxyz0123', $buffer->readChars(10));
+        static::assertSame('uvwxyz0123', $buffer->readChars(10));
     }
 
     public function testSub() : void
@@ -377,6 +377,6 @@ final class ByteBufferTest extends TestCase
 
         $buffer = $buffer->copy(10, 10);
 
-        $this->assertEquals('klmnopqrst', $buffer->readChars(10));
+        static::assertSame('klmnopqrst', $buffer->readChars(10));
     }
 }

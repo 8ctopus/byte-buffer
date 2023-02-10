@@ -8,13 +8,16 @@ use Exception;
 enum Endian
 {
     case LittleEndian;
+
     case BigEndian;
 }
 
 enum Origin
 {
     case Start;
+
     case Current;
+
     case End;
 }
 
