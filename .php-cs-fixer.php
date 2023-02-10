@@ -27,6 +27,7 @@ return (new PhpCsFixer\Config('', ''))
             'import_functions' => false,
         ],
         'multiline_whitespace_before_semicolons' => false,
+        'native_function_invocation' => false,
         'no_empty_comment' => false,
         'no_superfluous_phpdoc_tags' => false,
         'no_useless_else' => false,
