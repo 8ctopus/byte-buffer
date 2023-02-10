@@ -27,5 +27,5 @@
         "test": "phpunit --coverage-html=coverage",
         "cs-review": "php-cs-fixer fix --verbose --diff --dry-run",
         "cs-fix": "php-cs-fixer fix --verbose"
-    },
+    }
 }
