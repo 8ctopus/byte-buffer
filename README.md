@@ -84,18 +84,15 @@ echo $parrot->invert();
 ## run tests
 
 ```sh
-vendor/bin/phpunit
-
-# code coverage
-vendor/bin/phpunit --coverage-html coverage
+composer test
 ```
 
 ## clean code
 
 ```sh
-vendor/bin/php-cs-fixer fix
+composer cs-fix
 ```
 
 # reference
 
-https://igor.io/2012/09/24/binary-parsing.html
+    https://igor.io/2012/09/24/binary-parsing.html

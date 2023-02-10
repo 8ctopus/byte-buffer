@@ -22,5 +22,10 @@
         "psr-4": {
             "Oct8pus\\ByteBuffer\\": "src"
         }
-    }
+    },
+    "scripts": {
+        "test": "phpunit --coverage-html=coverage",
+        "cs-review": "php-cs-fixer fix --verbose --diff --dry-run",
+        "cs-fix": "php-cs-fixer fix --verbose"
+    },
 }
