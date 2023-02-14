@@ -3,6 +3,7 @@
 /vendor/*
 
 # phpunit
+/.phpunit.cache/
 /.phpunit.result.cache
 /coverage/
 
