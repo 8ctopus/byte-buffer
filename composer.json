@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Oct8pus\\ByteBuffer\\": "src"
+            "Oct8pus\\ByteBuffer\\": "src/"
         }
     },
     "scripts": {
