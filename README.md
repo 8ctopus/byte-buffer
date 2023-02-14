@@ -86,15 +86,15 @@ echo $parrot->invert();
 
 ## run tests
 
-```sh
-composer test
-```
+    composer test
 
 ## clean code
 
-```sh
-composer cs-fix
-```
+    # safe
+    composer fix
+
+    # risky
+    composer fix-risky
 
 # reference
 
