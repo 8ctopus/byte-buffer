@@ -30,8 +30,8 @@
     },
     "scripts": {
         "test": "phpunit --coverage-html=coverage",
-        "cs-review": "php-cs-fixer fix --verbose --diff --dry-run",
-        "cs-fix": "php-cs-fixer fix --verbose",
+        "fix": "php-cs-fixer fix --verbose",
+        "fix-risky": "php-cs-fixer fix --allow-risky=yes --verbose",
         "phpstan": "phpstan analyse --level 9 src",
         "phpmd": "phpmd src ansi phpmd.xml"
     }
