@@ -27,6 +27,9 @@ class ByteBufferException extends Exception
 {
 }
 
+/**
+ * @implements \ArrayAccess<int, int>
+ */
 class ByteBuffer implements ArrayAccess
 {
     private ?Endian $endian;
@@ -91,14 +94,14 @@ class ByteBuffer implements ArrayAccess
     /**
      * Get endian
      *
-     * @return Endian
+     * @return ?Endian
      */
-    public function endian() : Endian
+    public function endian() : ?Endian
     {
         return $this->endian;
     }
 
-    public function setEndian(Endian $endian) : self
+    public function setEndian(?Endian $endian) : self
     {
         $this->endian = $endian;
         return $this;
@@ -216,7 +219,13 @@ class ByteBuffer implements ArrayAccess
             throw new ByteBufferException('endian not set');
         }
 
-        return unpack($this->endian === Endian::LittleEndian ? 'v' : 'n', $this->read(2))[1];
+        $word = unpack($this->endian === Endian::LittleEndian ? 'v' : 'n', $this->read(2));
+
+        if ($word === false) {
+            throw new ByteBufferException('unpack');
+        }
+
+        return $word[1];
     }
 
     public function readDword() : int
@@ -225,7 +234,13 @@ class ByteBuffer implements ArrayAccess
             throw new ByteBufferException('endian not set');
         }
 
-        return unpack($this->endian === Endian::LittleEndian ? 'V' : 'N', $this->read(4))[1];
+        $dword = unpack($this->endian === Endian::LittleEndian ? 'V' : 'N', $this->read(4));
+
+        if ($dword === false) {
+            throw new ByteBufferException('unpack');
+        }
+
+        return $dword[1];
     }
 
     public function readChars(int $length) : string
