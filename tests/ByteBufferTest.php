@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @covers \Oct8pus\ByteBuffer\ByteBuffer
  */
 final class ByteBufferTest extends TestCase
