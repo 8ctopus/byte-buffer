@@ -10,9 +10,7 @@ Work with binary data in php.
 
 ## install
 
-```sh
-composer require 8ctopus/byte-buffer
-```
+    composer require 8ctopus/byte-buffer
 
 ## demo
 
