@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1677477031">
-  <project timestamp="1677477031">
+<coverage generated="1677479262">
+  <project timestamp="1677479262">
     <file name="/home/runner/work/byte-buffer/byte-buffer/src/ByteBuffer.php">
       <class name="Oct8pus\ByteBuffer\ByteBuffer" namespace="global">
-        <metrics complexity="79" methods="33" coveredmethods="28" conditionals="0" coveredconditionals="0" statements="147" coveredstatements="138" elements="180" coveredelements="166"/>
+        <metrics complexity="79" methods="33" coveredmethods="29" conditionals="0" coveredconditionals="0" statements="147" coveredstatements="139" elements="180" coveredelements="168"/>
       </class>
-      <line num="34" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="20"/>
-      <line num="36" type="stmt" count="20"/>
-      <line num="37" type="stmt" count="20"/>
-      <line num="38" type="stmt" count="20"/>
+      <line num="34" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="21"/>
+      <line num="36" type="stmt" count="21"/>
+      <line num="37" type="stmt" count="21"/>
+      <line num="38" type="stmt" count="21"/>
       <line num="46" type="method" name="__toString" visibility="public" complexity="11" crap="12.63" count="1"/>
       <line num="48" type="stmt" count="1"/>
       <line num="50" type="stmt" count="1"/>
@@ -33,11 +33,11 @@
       <line num="86" type="stmt" count="1"/>
       <line num="94" type="method" name="endian" visibility="public" complexity="1" crap="1" count="2"/>
       <line num="96" type="stmt" count="2"/>
-      <line num="99" type="method" name="setEndian" visibility="public" complexity="1" crap="1" count="19"/>
-      <line num="101" type="stmt" count="19"/>
-      <line num="102" type="stmt" count="19"/>
-      <line num="110" type="method" name="length" visibility="public" complexity="1" crap="1" count="16"/>
-      <line num="112" type="stmt" count="16"/>
+      <line num="99" type="method" name="setEndian" visibility="public" complexity="1" crap="1" count="20"/>
+      <line num="101" type="stmt" count="20"/>
+      <line num="102" type="stmt" count="20"/>
+      <line num="110" type="method" name="length" visibility="public" complexity="1" crap="1" count="17"/>
+      <line num="112" type="stmt" count="17"/>
       <line num="120" type="method" name="truncate" visibility="public" complexity="1" crap="1" count="2"/>
       <line num="122" type="stmt" count="2"/>
       <line num="123" type="stmt" count="2"/>
@@ -118,12 +118,12 @@
       <line num="324" type="stmt" count="3"/>
       <line num="327" type="stmt" count="4"/>
       <line num="329" type="stmt" count="4"/>
-      <line num="332" type="method" name="writeChars" visibility="public" complexity="2" crap="2" count="16"/>
-      <line num="334" type="stmt" count="16"/>
-      <line num="335" type="stmt" count="15"/>
+      <line num="332" type="method" name="writeChars" visibility="public" complexity="2" crap="2" count="17"/>
+      <line num="334" type="stmt" count="17"/>
+      <line num="335" type="stmt" count="16"/>
       <line num="337" type="stmt" count="1"/>
-      <line num="340" type="stmt" count="16"/>
-      <line num="342" type="stmt" count="16"/>
+      <line num="340" type="stmt" count="17"/>
+      <line num="342" type="stmt" count="17"/>
       <line num="345" type="method" name="writeString" visibility="public" complexity="2" crap="2" count="3"/>
       <line num="347" type="stmt" count="3"/>
       <line num="349" type="stmt" count="3"/>
@@ -183,9 +183,9 @@
       <line num="521" type="stmt" count="1"/>
       <line num="522" type="stmt" count="1"/>
       <line num="525" type="stmt" count="1"/>
-      <line num="528" type="method" name="offsetUnset" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="530" type="stmt" count="0"/>
-      <metrics loc="534" ncloc="406" classes="1" methods="33" coveredmethods="28" conditionals="0" coveredconditionals="0" statements="147" coveredstatements="138" elements="180" coveredelements="166"/>
+      <line num="528" type="method" name="offsetUnset" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="530" type="stmt" count="1"/>
+      <metrics loc="534" ncloc="406" classes="1" methods="33" coveredmethods="29" conditionals="0" coveredconditionals="0" statements="147" coveredstatements="139" elements="180" coveredelements="168"/>
     </file>
     <file name="/home/runner/work/byte-buffer/byte-buffer/src/ByteBufferException.php">
       <class name="Oct8pus\ByteBuffer\ByteBufferException" namespace="global">
@@ -193,6 +193,6 @@
       </class>
       <metrics loc="9" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="2" loc="543" ncloc="415" classes="1" methods="33" coveredmethods="28" conditionals="0" coveredconditionals="0" statements="147" coveredstatements="138" elements="180" coveredelements="166"/>
+    <metrics files="2" loc="543" ncloc="415" classes="1" methods="33" coveredmethods="29" conditionals="0" coveredconditionals="0" statements="147" coveredstatements="139" elements="180" coveredelements="168"/>
   </project>
 </coverage>
