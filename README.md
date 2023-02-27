@@ -90,10 +90,7 @@ echo $parrot->invert();
 
 ## clean code
 
-    # safe
     composer fix
-
-    # risky
     composer fix-risky
 
 # reference
