@@ -7,7 +7,7 @@
 [![min php version](http://poser.pugx.org/8ctopus/byte-buffer/require/php)](https://packagist.org/packages/8ctopus/byte-buffer)
 [![license](http://poser.pugx.org/8ctopus/byte-buffer/license)](https://packagist.org/packages/8ctopus/byte-buffer)
 
-Work with binary data in php.
+A php buffer to work with binary data.
 
 ## install
 
