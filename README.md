@@ -2,12 +2,12 @@
 
 Work with binary data in php.
 
-[![Latest Stable Version](http://poser.pugx.org/8ctopus/byte-buffer/v)](https://packagist.org/packages/8ctopus/byte-buffer)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/8ctopus/byte-buffer/ci.yaml?branch=master)
-![Code Coverage Badge](./coverage.svg)
-[![Total Downloads](http://poser.pugx.org/8ctopus/byte-buffer/downloads)](https://packagist.org/packages/8ctopus/byte-buffer)
-[![PHP Version Require](http://poser.pugx.org/8ctopus/byte-buffer/require/php)](https://packagist.org/packages/8ctopus/byte-buffer)
-[![License](http://poser.pugx.org/8ctopus/byte-buffer/license)](https://packagist.org/packages/8ctopus/byte-buffer)
+[![latest stable version](http://poser.pugx.org/8ctopus/byte-buffer/v)](https://packagist.org/packages/8ctopus/byte-buffer)
+![tests status](https://img.shields.io/github/actions/workflow/status/8ctopus/byte-buffer/ci.yaml?branch=master)
+![code coverage badge](./coverage.svg)
+[![downloads](http://poser.pugx.org/8ctopus/byte-buffer/downloads)](https://packagist.org/packages/8ctopus/byte-buffer)
+[![min php version](http://poser.pugx.org/8ctopus/byte-buffer/require/php)](https://packagist.org/packages/8ctopus/byte-buffer)
+[![license](http://poser.pugx.org/8ctopus/byte-buffer/license)](https://packagist.org/packages/8ctopus/byte-buffer)
 
 ## install
 
