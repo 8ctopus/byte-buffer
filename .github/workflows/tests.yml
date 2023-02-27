@@ -70,7 +70,7 @@ jobs:
         with:
           debug: true
           directory: ./src/
-          badge: ./output/lines.svg
+          badge: output/lines.svg
           # patterns in the format of a '.gitignore' file, separated by pipes.
           patterns: '*.php'
           # directories to ignore, separated by pipes.
