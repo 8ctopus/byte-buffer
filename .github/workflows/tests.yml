@@ -65,8 +65,8 @@ jobs:
           #repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Make lines of code badge
-        uses: shadowmoose/GHA-LoC-Badge@1.0.0
-        id: badge
+        uses: DeathSy/GHA-LoC-Badge@1.0.3
+        #id: badge
         with:
           debug: true
           directory: ./src/
