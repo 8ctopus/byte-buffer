@@ -1,26 +1,24 @@
-name: "Continuous Integration"
+name: run-tests
 
-on:
-  - pull_request
-  - push
+on: [push, pull_request]
 
 env:
   COMPOSER_ROOT_VERSION: 1.99
 
 jobs:
   tests:
-    name: "Tests"
-
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        php-version:
+        php-version: ["8.1", "8.2"]
           - "8.1"
           - "8.2"
 
         dependencies:
           - "highest"
+
+    name: P${{ matrix.php-version }} - ${{ matrix.dependencies }}
 
     steps:
       - name: Checkout
