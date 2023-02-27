@@ -380,4 +380,18 @@ final class ByteBufferTest extends TestCase
 
         static::assertSame('klmnopqrst', $buffer->readChars(10));
     }
+
+    public function testUnset() : void
+    {
+        $this->expectException(ByteBufferException::class);
+        $this->expectExceptionMessage('not implemented');
+
+        $str = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
+        unset($buffer[4]);
+    }
 }
