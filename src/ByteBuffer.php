@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Oct8pus\ByteBuffer;
 
 use ArrayAccess;
-use Exception;
 
 enum Endian
 {
@@ -21,10 +20,6 @@ enum Origin
     case Current;
 
     case End;
-}
-
-class ByteBufferException extends Exception
-{
 }
 
 /**
