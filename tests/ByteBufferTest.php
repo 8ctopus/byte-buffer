@@ -329,6 +329,19 @@ final class ByteBufferTest extends TestCase
             ->writeChars('abcdef');
 
         static::assertSame("hex (6/6): 61626364 6566 - abcdef\n", (string) $buffer);
+
+        $buffer
+            ->truncate()
+            ->writeChars('abcdefghijklmnopqrstuvwxyz0123456789');
+
+        $output = <<<TEST
+            hex (36/36):
+            61626364 65666768 696a6b6c 6d6e6f70 71727374 - abcdefghijklmnopqrst
+            75767778 797a3031 32333435 36373839          - uvwxyz0123456789
+
+            TEST;
+
+        static::assertSame($output, (string) $buffer);
     }
 
     public function testStringMethod() : void
