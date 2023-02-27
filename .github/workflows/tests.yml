@@ -1,6 +1,11 @@
 name: tests
 
-on: [push, pull_request]
+on:
+  - push:
+    branches: [master]
+  - pull_request
+paths-ignore:
+  - '**.md'
 
 env:
   COMPOSER_ROOT_VERSION: 1.99
