@@ -30,6 +30,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
+          extensions: xdebug
           ini-values: zend.assertions=1
 
       - name: "Get composer cache directory"
@@ -53,4 +54,11 @@ jobs:
 
       - name: "Run tests"
         timeout-minutes: 3
-        run: "vendor/bin/phpunit"
+        run: "vendor/bin/phpunit --coverage-clover clover.xml"
+
+      - name: "Code coverage badge"
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: coverage.svg
+          push_badge: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
