@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1677479734">
-  <project timestamp="1677479734">
+<coverage generated="1677481616">
+  <project timestamp="1677481616">
     <file name="/home/runner/work/byte-buffer/byte-buffer/src/ByteBuffer.php">
       <class name="Oct8pus\ByteBuffer\ByteBuffer" namespace="global">
         <metrics complexity="79" methods="33" coveredmethods="30" conditionals="0" coveredconditionals="0" statements="147" coveredstatements="144" elements="180" coveredelements="174"/>
