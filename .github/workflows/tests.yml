@@ -57,26 +57,27 @@ jobs:
         timeout-minutes: 3
         run: vendor/bin/phpunit --coverage-clover clover.xml
 
-      - name: Make code coverage badge
-        uses: timkrase/phpunit-coverage-badge@v1.2.1
-        with:
-          coverage_badge_path: output/coverage.svg
-          push_badge: false
-          #repo_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Make lines of code badge
         uses: DeathSy/GHA-LoC-Badge@1.0.3
         #id: badge
         with:
           debug: true
           directory: ./src/
-          badge: output/lines.svg
+          badge: ./output/lines.svg
           # patterns in the format of a '.gitignore' file, separated by pipes.
           patterns: '*.php'
           # directories to ignore, separated by pipes.
           #ignore: 'vendor|tests'
 
-      - name: Deploy to image-data branch
+      - name: Make code coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: output/coverage.svg
+          # push badge later on
+          push_badge: false
+          #repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Git push to image-data branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: ./output
