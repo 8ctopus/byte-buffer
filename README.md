@@ -1,13 +1,13 @@
 # byte buffer
 
-Work with binary data in php.
-
 [![latest stable version](http://poser.pugx.org/8ctopus/byte-buffer/v)](https://packagist.org/packages/8ctopus/byte-buffer)
 [![tests](https://github.com/8ctopus/byte-buffer/actions/workflows/tests.yml/badge.svg)](https://github.com/8ctopus/byte-buffer/actions/workflows/tests.yml)
 ![code coverage badge](./coverage.svg)
 [![downloads](http://poser.pugx.org/8ctopus/byte-buffer/downloads)](https://packagist.org/packages/8ctopus/byte-buffer)
 [![min php version](http://poser.pugx.org/8ctopus/byte-buffer/require/php)](https://packagist.org/packages/8ctopus/byte-buffer)
 [![license](http://poser.pugx.org/8ctopus/byte-buffer/license)](https://packagist.org/packages/8ctopus/byte-buffer)
+
+Work with binary data in php.
 
 ## install
 
