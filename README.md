@@ -29,6 +29,7 @@ $buffer = (new ByteBuffer())
     ->writeString('Hello World');
 
 echo $buffer . "\n";
+// hex (12/12): 48656c6c 6f20576f 726c6400 - Hello World.
 
 echo "Add byte 0x07, word 0xFFFF and dword 0xAABBCCDD\n";
 
@@ -38,32 +39,40 @@ $buffer
     ->writeDword(0xAABBCCDD);
 
 echo $buffer;
+// hex (19/19): 48656c6c 6f20576f 726c6400 07ffffdd ccbbaa - Hello World........
 
 echo "\nSeek buffer back to origin\n";
 
 $buffer->seek(0, Origin::Start);
 
 echo $buffer;
+// hex (0/19): 48656c6c 6f20576f 726c6400 07ffffdd ccbbaa - Hello World........
 
 echo "\nRead string from buffer\n";
 
 echo $buffer->readString() . "\n";
+// Hello World
 
 echo "\nRead byte, word and dword\n";
 
 printf("0x%02X\n", $buffer->readByte());
 printf("0x%04X\n", $buffer->readword());
 printf("0x%08X\n", $buffer->readDword());
+// 0x07
+// 0xFFFF
+// 0xAABBCCDD
 
 echo "\nDelete World from buffer\n";
 
 $buffer->delete(6, 5);
 
 echo $buffer;
+// hex (19/14): 48656c6c 6f200007 ffffddcc bbaa - Hello ........
 
 echo "\nCalculate buffer crc32b\n";
 
 echo '0x'. strtoupper($buffer->crc32b(true)) . "\n";
+// 0xF3B2604E
 
 echo "\nInsert Parrot at position 6\n";
 
@@ -72,16 +81,19 @@ $buffer
     ->insertChars('Parrot');
 
 echo $buffer;
+// hex (12/20): 48656c6c 6f205061 72726f74 0007ffff ddccbbaa - Hello Parrot........
 
 echo "\nCopy Parrot into a new buffer\n";
 
 $parrot = $buffer->copy(6, 6);
 
 echo $parrot;
+// hex (0/6): 50617272 6f74 - Parrot
 
 echo "\nInvert Parrot\n";
 
 echo $parrot->invert();
+// hex (0/6): 746f7272 6150 - torraP
 ```
 
 ## run tests
