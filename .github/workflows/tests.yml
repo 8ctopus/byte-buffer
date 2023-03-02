@@ -63,9 +63,18 @@ jobs:
         with:
           args: ${{ env.workspace }} -i php --exclude-dir vendor --format json src
 
+      - name: Make code coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: output/coverage.svg
+          # push badge later on
+          push_badge: false
+          #repo_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Echo scc output
         run: |
           echo -n "${{ steps.scc.outputs.scc }}"
+          echo -n "${{ steps.scc.outputs.scc.Lines }}"
           echo -n "${{ fromJson(steps.scc.outputs.scc).Lines }}"
 
       - name: Make lines of code badge
@@ -88,14 +97,6 @@ jobs:
 #          patterns: '**/*.php'
 #          # directories to ignore, separated by pipes.
 #          #ignore: 'vendor|tests'
-
-      - name: Make code coverage badge
-        uses: timkrase/phpunit-coverage-badge@v1.2.1
-        with:
-          coverage_badge_path: output/coverage.svg
-          # push badge later on
-          push_badge: false
-          #repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Git push to image-data branch
         uses: peaceiris/actions-gh-pages@v3
