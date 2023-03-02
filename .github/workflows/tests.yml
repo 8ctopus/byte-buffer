@@ -76,6 +76,19 @@ jobs:
           color: 'blue,555,daf'
           path: output/lines.svg
 
+# less performant as it does not take comments into consideration
+#      - name: Make lines of code badge
+#        uses: DeathSy/GHA-LoC-Badge@1.0.3
+#        #id: badge
+#        with:
+#          debug: true
+#          directory: ./src/
+#          badge: ./output/lines.svg
+#          # patterns in the format of a '.gitignore' file, separated by pipes.
+#          patterns: '**/*.php'
+#          # directories to ignore, separated by pipes.
+#          #ignore: 'vendor|tests'
+
       - name: Make code coverage badge
         uses: timkrase/phpunit-coverage-badge@v1.2.1
         with:
