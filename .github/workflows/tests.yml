@@ -65,7 +65,7 @@ jobs:
           directory: ./src/
           badge: ./output/lines.svg
           # patterns in the format of a '.gitignore' file, separated by pipes.
-          patterns: '*.php'
+          patterns: '**/*.php'
           # directories to ignore, separated by pipes.
           #ignore: 'vendor|tests'
 
