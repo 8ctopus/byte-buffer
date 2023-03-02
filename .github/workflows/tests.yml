@@ -73,7 +73,7 @@ jobs:
         with:
           label: Lines of Code
           status: ${{ fromJson(steps.scc.outputs.scc)[0].Lines }}
-          color: 'blue,555,daf'
+          color: 'blue'
           path: .github/lines.svg
 
 # less performant as it does not take comments into consideration
