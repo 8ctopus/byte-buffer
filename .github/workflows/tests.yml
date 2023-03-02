@@ -71,10 +71,10 @@ jobs:
         with:
           args: ${{ env.workspace }} -i php --exclude-dir vendor --format json src
 
-      - name: Echo scc output
-        run: |
-          echo -n "${{ steps.scc.outputs.scc }}"
-          echo -n "${{ fromJson(steps.scc.outputs.scc)[0].Lines }}"
+#      - name: Echo scc output
+#        run: |
+#          echo -n "${{ steps.scc.outputs.scc }}"
+#          echo -n "${{ fromJson(steps.scc.outputs.scc)[0].Lines }}"
 
       - name: Make lines of code badge
         uses: emibcn/badge-action@v2.0.2
@@ -82,7 +82,7 @@ jobs:
           label: Lines of Code
           status: ${{ fromJson(steps.scc.outputs.scc)[0].Lines }}
           color: 'blue,555,daf'
-          path: ./output/lines.svg
+          path: output/lines.svg
 
 # less performant as it does not take comments into consideration
 #      - name: Make lines of code badge
