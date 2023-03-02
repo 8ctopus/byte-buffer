@@ -65,16 +65,16 @@ jobs:
 
       - name: Echo scc output
         run: |
-          echo
           echo -n "${{ steps.scc.outputs.scc }}"
+          echo -n "${{ fromJson(steps.scc.outputs.scc).Lines }}"
 
       - name: Make lines of code badge
         uses: emibcn/badge-action@v2.0.2
         with:
           label: Lines of Code
-          status: steps.scc.outputs.scc.Lines
+          status: ${{ fromJson(steps.scc.outputs.scc).Lines }}
           color: 'blue,555,daf'
-          path: output/lines.svg
+          path: ./output/lines.svg
 
 # less performant as it does not take comments into consideration
 #      - name: Make lines of code badge
