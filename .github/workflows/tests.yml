@@ -63,7 +63,7 @@ jobs:
         with:
           args: ${{ env.workspace }} -i php --exclude-dir vendor --format json src
 
-     - name: Echo scc output
+      - name: Echo scc output
         run: |
           echo
           echo -n "${{ steps.scc.outputs.Lines }}"
