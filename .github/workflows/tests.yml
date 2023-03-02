@@ -74,7 +74,7 @@ jobs:
           label: Lines of Code
           status: ${{ fromJson(steps.scc.outputs.scc)[0].Lines }}
           color: 'blue,555,daf'
-          path: output/lines.svg
+          path: .github/lines.svg
 
 # less performant as it does not take comments into consideration
 #      - name: Make lines of code badge
@@ -92,7 +92,7 @@ jobs:
       - name: Make code coverage badge
         uses: timkrase/phpunit-coverage-badge@v1.2.1
         with:
-          coverage_badge_path: output/coverage.svg
+          coverage_badge_path: .github/coverage.svg
           # push badge later on
           push_badge: false
           #repo_token: ${{ secrets.GITHUB_TOKEN }}
