@@ -57,17 +57,37 @@ jobs:
         timeout-minutes: 3
         run: vendor/bin/phpunit --coverage-clover clover.xml
 
-      - name: Make lines of code badge
-        uses: DeathSy/GHA-LoC-Badge@1.0.3
-        #id: badge
+      - name: Get lines of code (more sophisticated)
+        id: scc
+        uses: iryanbell/scc-docker-action@v1.0.2
         with:
-          debug: true
-          directory: ./src/
-          badge: ./output/lines.svg
-          # patterns in the format of a '.gitignore' file, separated by pipes.
-          patterns: '**/*.php'
-          # directories to ignore, separated by pipes.
-          #ignore: 'vendor|tests'
+          args: ${{ env.workspace }} -i php --exclude-dir vendor --format json src
+
+     - name: Echo scc output
+        run: |
+          echo
+          echo -n "${{ steps.scc.outputs.Lines }}"
+
+      - name: Make lines of code badge
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: Lines of Code
+          status: steps.scc.outputs.scc.Lines
+          color: 'blue,555,daf'
+          path: output/lines.svg
+
+# less performant as it does not take comments into consideration
+#      - name: Make lines of code badge
+#        uses: DeathSy/GHA-LoC-Badge@1.0.3
+#        #id: badge
+#        with:
+#          debug: true
+#          directory: ./src/
+#          badge: ./output/lines.svg
+#          # patterns in the format of a '.gitignore' file, separated by pipes.
+#          patterns: '**/*.php'
+#          # directories to ignore, separated by pipes.
+#          #ignore: 'vendor|tests'
 
       - name: Make code coverage badge
         uses: timkrase/phpunit-coverage-badge@v1.2.1
