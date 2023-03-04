@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ["8.1", "8.2"]
+        php-version: ["8.2"]
 
         dependencies:
           - "highest"
@@ -24,11 +24,11 @@ jobs:
     name: P${{ matrix.php-version }} - ${{ matrix.dependencies }}
 
     steps:
-      - name: Checkout
+      - name: Checkout project
         uses: actions/checkout@v2
 
       - name: Install PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@2.24.0
         with:
           php-version: "${{ matrix.php-version }}"
           extensions: xdebug
@@ -36,10 +36,10 @@ jobs:
 
       - name: Get composer cache directory
         id: composercache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composercache.outputs.dir }}
           key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ matrix.dependencies }}-composer-${{ hashFiles('**/composer.json') }}
@@ -97,7 +97,7 @@ jobs:
           push_badge: false
           #repo_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Git push to image-data branch
+      - name: Git push badges to image-data branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: .github
