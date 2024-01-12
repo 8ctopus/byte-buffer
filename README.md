@@ -121,4 +121,4 @@ echo $parrot->truncate();
 
 # reference
 
-    https://igor.io/2012/09/24/binary-parsing.html
+[https://igor.io/2012/09/24/binary-parsing.html](https://igor.io/2012/09/24/binary-parsing.html)
