@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+use NunoMaduro\Collision\Provider;
 use Oct8pus\ByteBuffer\ByteBuffer;
 use Oct8pus\ByteBuffer\Endian;
 use Oct8pus\ByteBuffer\Origin;
@@ -7,7 +10,7 @@ use Oct8pus\ByteBuffer\Origin;
 require_once __DIR__ . '/vendor/autoload.php';
 
 // command line error handler
-(new \NunoMaduro\Collision\Provider())->register();
+(new Provider())->register();
 
 echo "Let's create a new little endian buffer and write string Hello World\n";
 
