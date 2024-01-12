@@ -72,3 +72,12 @@ echo $parrot;
 echo "\nInvert Parrot\n";
 
 echo $parrot->invert();
+
+echo "\nCalculate hashes\n";
+echo 'md5: ' . $parrot->md5(false) . "\n";
+echo 'sha1: ' . $parrot->sha1(false) . "\n";
+echo 'sha256: ' . $parrot->sha256(false) . "\n";
+
+echo "\nTruncate buffer\n";
+
+echo $parrot->truncate();

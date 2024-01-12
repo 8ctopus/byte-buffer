@@ -366,6 +366,23 @@ final class ByteBufferTest extends TestCase
         self::assertSame(hash('crc32b', $str, false), $buffer->crc32b(true));
     }
 
+    public function testHashes() : void
+    {
+        $str = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+        $buffer = (new ByteBuffer())
+            ->setEndian(Endian::LittleEndian)
+            ->writeChars($str);
+
+        self::assertSame(hash('sha1', $str, false), $buffer->sha1(false));
+        self::assertSame(hash('sha256', $str, false), $buffer->sha256(false));
+        self::assertSame(hash('md5', $str, false), $buffer->md5(false));
+
+        self::assertSame(hash('sha1', $str, true), $buffer->sha1(true));
+        self::assertSame(hash('sha256', $str, false), $buffer->sha256(false));
+        self::assertSame(hash('md5', $str, true), $buffer->md5(true));
+    }
+
     public function testDelete() : void
     {
         $str = 'abcdefghijklmnopqrstuvwxyz0123456789';

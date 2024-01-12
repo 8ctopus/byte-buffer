@@ -483,6 +483,42 @@ class ByteBuffer implements ArrayAccess
         return $asString ? dechex($crc) : $crc;
     }
 
+    /**
+     * Calculate md5 hash
+     *
+     * @param bool $binary
+     *
+     * @return string
+     */
+    public function md5(bool $binary = false) : string
+    {
+        return md5($this->data, $binary);
+    }
+
+    /**
+     * Calculate sha1 hash
+     *
+     * @param bool $binary
+     *
+     * @return string
+     */
+    public function sha1(bool $binary = false) : string
+    {
+        return sha1($this->data, $binary);
+    }
+
+    /**
+     * Calculate sha256 hash
+     *
+     * @param bool $binary
+     *
+     * @return string
+     */
+    public function sha256(bool $binary = false) : string
+    {
+        return hash('sha256', $this->data, $binary);
+    }
+
     public function offsetGet(mixed $offset) : int
     {
         if (gettype($offset) !== 'integer') {

@@ -95,6 +95,19 @@ echo "\nInvert Parrot\n";
 
 echo $parrot->invert();
 // hex (0/6): 746f7272 6150 - torraP
+
+echo "\nCalculate hashes\n";
+echo 'md5: ' . $parrot->md5(false) . "\n";
+echo 'sha1: ' . $parrot->sha1(false) . "\n";
+echo 'sha256: ' . $parrot->sha256(false) . "\n";
+// md5: 4264ed2a05f9548fb3b26601c1c904c4
+// sha1: d50da4682cdb41c803075168f5c132fd33ffa34d
+// sha256: e2d6ddb19ca9c3396521297f4a09581c1187acb29931c8d4431941be71d2215c
+
+echo "\nTruncate buffer\n";
+
+echo $parrot->truncate();
+// hex (0/0):
 ```
 
 ## run tests
