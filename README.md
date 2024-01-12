@@ -21,9 +21,9 @@ use Oct8pus\ByteBuffer\ByteBuffer;
 use Oct8pus\ByteBuffer\Endian;
 use Oct8pus\ByteBuffer\Origin;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
-echo "Let's create a new little endian ByteBuffer and write Hello World\n";
+echo "Let's create a new little endian buffer and write string Hello World\n";
 
 $buffer = (new ByteBuffer())
     ->setEndian(Endian::LittleEndian)
@@ -84,7 +84,7 @@ $buffer
 echo $buffer;
 // hex (12/20): 48656c6c 6f205061 72726f74 0007ffff ddccbbaa - Hello Parrot........
 
-echo "\nCopy Parrot into a new buffer\n";
+echo "\nCopy Parrot to a new buffer\n";
 
 $parrot = $buffer->copy(6, 6);
 

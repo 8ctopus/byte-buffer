@@ -9,7 +9,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 // command line error handler
 (new \NunoMaduro\Collision\Provider())->register();
 
-echo "Let's create a new little endian ByteBuffer and write Hello World\n";
+echo "Let's create a new little endian buffer and write string Hello World\n";
 
 $buffer = (new ByteBuffer())
     ->setEndian(Endian::LittleEndian)
@@ -60,7 +60,7 @@ $buffer
 
 echo $buffer;
 
-echo "\nCopy Parrot into a new buffer\n";
+echo "\nCopy Parrot to a new buffer\n";
 
 $parrot = $buffer->copy(6, 6);
 
