@@ -1,9 +1,9 @@
 # byte buffer
 
-[![packagist](http://poser.pugx.org/8ctopus/byte-buffer/v)](https://packagist.org/packages/8ctopus/byte-buffer)
-[![downloads](http://poser.pugx.org/8ctopus/byte-buffer/downloads)](https://packagist.org/packages/8ctopus/byte-buffer)
-[![min php version](http://poser.pugx.org/8ctopus/byte-buffer/require/php)](https://packagist.org/packages/8ctopus/byte-buffer)
-[![license](http://poser.pugx.org/8ctopus/byte-buffer/license)](https://packagist.org/packages/8ctopus/byte-buffer)
+[![packagist](https://poser.pugx.org/8ctopus/byte-buffer/v)](https://packagist.org/packages/8ctopus/byte-buffer)
+[![downloads](https://poser.pugx.org/8ctopus/byte-buffer/downloads)](https://packagist.org/packages/8ctopus/byte-buffer)
+[![min php version](https://poser.pugx.org/8ctopus/byte-buffer/require/php)](https://packagist.org/packages/8ctopus/byte-buffer)
+[![license](https://poser.pugx.org/8ctopus/byte-buffer/license)](https://packagist.org/packages/8ctopus/byte-buffer)
 [![tests](https://github.com/8ctopus/byte-buffer/actions/workflows/tests.yml/badge.svg)](https://github.com/8ctopus/byte-buffer/actions/workflows/tests.yml)
 ![code coverage badge](https://raw.githubusercontent.com/8ctopus/byte-buffer/image-data/coverage.svg)
 ![lines of code](https://raw.githubusercontent.com/8ctopus/byte-buffer/image-data/lines.svg)
