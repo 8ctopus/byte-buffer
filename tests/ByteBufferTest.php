@@ -425,3 +425,4 @@ final class ByteBufferTest extends TestCase
         unset($buffer[4]);
     }
 }
+
